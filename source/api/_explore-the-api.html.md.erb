@@ -1,0 +1,69 @@
+# Explore the Cerby API
+
+This article describes the capabilities of the Cerby API for 
+retrieving user and account data and managing users from app 
+integrations.
+
+Cerby has built a public application programming interface (API) 
+that enables you to retrieve information about workspace users and 
+accounts stored in the Cerby platform. Also, you can perform user 
+management actions for software-as-a-service (SaaS) and paid 
+social apps connected to a [Cerby App integration](https://help.cerby.com/en/articles/6831152-explore-apps) 
+(formerly known as tenants), such as inviting and removing users, 
+updating roles, and checking for available roles.
+
+The Cerby API follows RESTful principles and the 
+[OpenAPI 3.0 Specifications](https://spec.openapis.org/oas/latest.html), 
+and communicates over HTTPS for secure data transmission. 
+
+To authorize your requests, you must provide an API or bearer token 
+that can only be generated and retrieved from the Cerby web app 
+after authenticating into your corporate identity provider, such as 
+Okta or Entra ID. Based on Cerby’s role-based access control (RBAC) 
+system, this token determines the endpoints and data you can access 
+depending on your workspace and item role.
+
+The Cerby API supports the following HTTP request methods:
+
+* GET requests to the following endpoints to retrieve information 
+about the accounts stored in the Cerby platform:
+    * `/v1/accounts`
+    * `/v1/accounts/{id}`
+* GET requests to the following endpoints to retrieve information 
+about the members of a Cerby workspace and the accounts they have 
+access to:
+    * `/v1/admin/users`
+    * `/v1/users/{id}/accounts`
+* GET requests to the following endpoint to retrieve the available 
+roles for a SaaS or paid social app connected to a Cerby App 
+integration or for a specific asset:
+    * `external/v1/tenants/{id}/info`
+POST requests to the following endpoints to start the automated 
+tasks to invite or remove users of a SaaS or paid social app 
+connected to a Cerby App integration and update their role:
+    * `/external/v1/tenants/{id}/invite`
+    * `/external/v1/tenants/{id}/revoke`
+    * `/external/v1/tenants/{id}/update`
+
+# Authorization
+All requests to the Cerby API must be authorized using a valid API 
+token generated via the Cerby web app or a bearer token. API tokens 
+must be included in the **X-API-Key** header of each API request, whereas 
+bearer tokens must be in the **Authorization** header. 
+
+When performing a request, the Cerby API first tries to authorize it 
+via the API token. If the API token is not present, authorization 
+is via a bearer token. If none of these tokens are present, the 
+Cerby API returns a 401 error.
+
+For more information on how to generate and retrieve a token, read the 
+articles [Generate an API]() token and [Retrieve a bearer token]().
+
+# Related artciles
+The following articles contain more information about how to use the Cerby API:
+
+* Explore the API and bearer tokens
+* Generate an API token 
+* Retrieve a bearer token
+* Data definitions
+* API endpoints reference
