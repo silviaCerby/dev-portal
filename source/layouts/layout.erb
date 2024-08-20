@@ -38,7 +38,7 @@ under the License.
         >
       <% end %>
     <% end %>
-    <title><%= current_page.data.title || "API Documentation" %></title>
+    <title><%= current_page.data.title || "Cerby Developer Portal" %></title>
 
     <style media="screen">
       <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
@@ -65,7 +65,20 @@ under the License.
   </head>
 
   <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
-    <a href="#" id="nav-button">
+    
+  <!-- Top Menu-->
+
+  <nav class="fixed-top-menu">
+    <ul>
+      <li><a href="source/api/_api-landing.html.md.erb">API</a></li>
+      <li><a href="source/cli/_cli_landing.html.md.erb">CLI</a></li>
+      <li><a href="#section3">Cerby Support</a></li>
+    </ul>
+  </nav>
+
+  <script src="javascripts/all.js"></script>
+  
+  <a href="#" id="nav-button">
       <span>
         NAV
         <%= image_tag('navbar.png') %>
@@ -114,7 +127,7 @@ under the License.
         </ul>
       <% end %>
     </div>
-    <div class="page-wrapper">
+    <div class="page-wrapper"> 
       <div class="dark-box"></div>
       <div class="content">
         <%= page_content %>

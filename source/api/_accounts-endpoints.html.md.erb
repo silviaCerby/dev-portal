@@ -79,7 +79,53 @@ The following is an example of the response object:
   "startIndex": 1,
   "totalResults": 15
   "accounts": [
-    {account}
+    {
+      "id": "55d3a51f-9181-46b9-9f43-cbb915155c66",
+      "name": "Acme Account",
+      "username": "johndoe@gmail.com",
+      "provider": "google",
+      "vaultId": "f9b480d4-f68e-4afa-b04a-8adb9498d543",
+      "idekID": "218095a1-d41f-1234-a278-4541953adac1",
+      "permissions": [],
+      "workspace": "Acme",
+      "mfaEnabled": false,
+      "autofillMfa": true,
+      "passwordSet": true,
+      "passwordVisible": false,
+      "createdBy": "b62e592c-4986-1234-978b-8223903a4ece",
+      "createdAt": "2024-02-03T13:20:32",
+      "updatedAt": "2024-02-03T13:23:04",
+      "role": "owner",
+      "avatar_url": "",
+      "email": "johndoe@gmail.com",
+      "type": "secret",
+      "url": null,
+      "domain": null,
+      "meta": {},
+      "status": "enabled",
+      "phone": "1232395629",
+      "rotatedBy": "manual_rotation",
+      "rotatedAt": "2024-02-03T13:56:26",
+      "syncedAt": null,
+      "hasBackupCode": false,
+      "rotatedById": "b62e592c-4986-4afa-89d4-8223903a4ece",
+      "domains": null,
+      "lastLoginDate": "2024-02-18T04:17:05",
+      "lastLoginUserName": "John Doe",
+      "isEmailManaged": false,
+      "isPhoneManaged": true,
+      "originalEmail": null,
+      "originalPhone": null,
+      "businessId": "",
+      "mfaTypes": [],
+      "rotatedByUser": null,
+      "hasTotpVirtualDevice": false,
+      "workspacePolicyResult": {
+        "mfa_validation": false,
+        "password_rotation": true
+      },
+      "workspacePolicyCheckDate": "2024-02-03T13:56:27"
+    }
   ]
 }
 ```
@@ -99,6 +145,56 @@ The following is the HTTP request method for the endpoint:
 
 ### Response
 The response is an [account]() object.
+
+```json
+{
+      "id": "55d3a51f-9181-46b9-9f43-cbb915155c66",
+      "name": "Acme Account",
+      "username": "johndoe@gmail.com",
+      "provider": "google",
+      "vaultId": "f9b480d4-f68e-4afa-b04a-8adb9498d543",
+      "idekID": "218095a1-d41f-1234-a278-4541953adac1",
+      "permissions": [],
+      "workspace": "Acme",
+      "mfaEnabled": false,
+      "autofillMfa": true,
+      "passwordSet": true,
+      "passwordVisible": false,
+      "createdBy": "b62e592c-4986-1234-978b-8223903a4ece",
+      "createdAt": "2024-02-03T13:20:32",
+      "updatedAt": "2024-02-03T13:23:04",
+      "role": "owner",
+      "avatar_url": "",
+      "email": "johndoe@gmail.com",
+      "type": "secret",
+      "url": null,
+      "domain": null,
+      "meta": {},
+      "status": "enabled",
+      "phone": "1232395629",
+      "rotatedBy": "manual_rotation",
+      "rotatedAt": "2024-02-03T13:56:26",
+      "syncedAt": null,
+      "hasBackupCode": false,
+      "rotatedById": "b62e592c-4986-4afa-89d4-8223903a4ece",
+      "domains": null,
+      "lastLoginDate": "2024-02-18T04:17:05",
+      "lastLoginUserName": "John Doe",
+      "isEmailManaged": false,
+      "isPhoneManaged": true,
+      "originalEmail": null,
+      "originalPhone": null,
+      "businessId": "",
+      "mfaTypes": [],
+      "rotatedByUser": null,
+      "hasTotpVirtualDevice": false,
+      "workspacePolicyResult": {
+        "mfa_validation": false,
+        "password_rotation": true
+      },
+      "workspacePolicyCheckDate": "2024-02-03T13:56:27"
+ }
+```
 
 ### Example
 The following is an example of a request to the endpoint:

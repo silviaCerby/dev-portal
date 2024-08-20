@@ -49,12 +49,11 @@ html, body {
 
 .toc-wrapper {
   transition: left 0.3s ease-in-out;
-
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
-  top: 0;
+  top: 38px;
   left: 0;
   bottom: 0;
   width: $nav-width;
@@ -253,7 +252,6 @@ html, body {
   z-index: 10;
   background-color: $main-bg;
   min-height: 100%;
-
   padding-bottom: 1px; // prevent margin overflow
 
   // The dark box is what gives the code samples their dark background.
@@ -261,12 +259,13 @@ html, body {
   // transparent background.
   // I know, it's hackish, but it's the simplist way to make the left
   // half of the content always this background color.
+  
   .dark-box {
     width: $examples-width;
     background-color: $examples-bg;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 38px;
     bottom: 0;
   }
 
@@ -320,6 +319,7 @@ html, body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
+  padding-top:37px;
 
   &:after {
     content: '';
@@ -351,7 +351,7 @@ html, body {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     margin-bottom: $h1-margin-bottom;
-    margin-top: 2em;
+    //margin-top: 2em;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     background-color: #fdfdfd;
@@ -359,13 +359,12 @@ html, body {
 
   h1:first-child, div:first-child + h1 {
     border-top-width: 0;
-    margin-top: 0;
   }
 
   h2 {
     @extend %header-font;
     font-size: 19px;
-    margin-top: 4em;
+    //margin-top: 4em;
     margin-bottom: 0;
     border-top: 1px solid #ccc;
     padding-top: 1.2em;
@@ -383,7 +382,7 @@ html, body {
   h3, h4, h5, h6 {
     @extend %header-font;
     font-size: 15px;
-    margin-top: 2.5em;
+    //margin-top: 2.5em;
     margin-bottom: 0.8em;
   }
 
@@ -634,4 +633,52 @@ html, body {
 
 .copy-clipboard:hover {
   opacity: 0.8;
+}
+
+/* Chatgtp content for top menu test 1*/
+
+.fixed-top-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.fixed-top-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.fixed-top-menu ul li {
+  margin: 0 20px;
+}
+
+.fixed-top-menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.fixed-top-menu ul li a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .top-menu ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .top-menu ul li {
+    margin: 10px 0;
+  }
 }
