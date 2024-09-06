@@ -302,7 +302,6 @@
   <nav class="fixed-top-menu">
     <ul>
       <li><a href="~/api/_api-landing.html">API</a></li>
-      <li><a href="#product2">CLI</a></li>
       <li><a href="#section3">Test it!</a></li>
       <li><a href="#section3">Cerby Support</a></li>
     </ul>
@@ -331,6 +330,17 @@
           <li>
             <a href="#welcome-to-the-cerby-developer-portal" class="toc-h1 toc-link" data-title="Welcome to the Cerby developer portal!">Welcome to the Cerby developer portal!</a>
           </li>
+          <li>
+            <a href="#accounts" class="toc-h1 toc-link" data-title="Accounts">Accounts</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-accounts" class="toc-h2 toc-link" data-title="Get all accounts">Get all accounts</a>
+                  </li>
+                  <li>
+                    <a href="#get-the-information-of-an-account-by-id" class="toc-h2 toc-link" data-title="Get the information of an account by ID">Get the information of an account by ID</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
     </div>
     <div class="page-wrapper"> 
@@ -346,6 +356,236 @@ but also the leap into electronic typesetting, remaining essentially unchanged.
 It was popularised in the 1960s with the release of Letraset sheets containing 
 Lorem Ipsum passages, and more recently with desktop publishing software like 
 Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+<h1 id='accounts'>Accounts</h1>
+
+<p>The following are the endpoints available for accounts:</p>
+
+<ul>
+<li><a href="#">Get all accounts</a></li>
+<li><a href="#">Get the information of an account by ID</a></li>
+</ul>
+
+<p>The following sections describe each endpoint.</p>
+
+<h2 id='get-all-accounts'>Get all accounts</h2>
+
+<p>With a <code>GET</code> request to the <code>/v1/accounts</code> endpoint, you can retrieve a 
+list of all your accounts in Cerby.</p>
+
+<h3 id='request'>Request</h3>
+
+<p>The following is the HTTP request method for the endpoint:</p>
+
+<ul>
+<li><strong>Request URL:</strong> <code>https://api.cerby.com/v1/accounts</code></li>
+<li><strong>Method:</strong> GET</li>
+<li><strong>Query parameters:</strong> 
+
+<ul>
+<li><code>limit</code> (Number): Indicates the number of account objects returned in the list of accounts array.</li>
+<li><code>startIndex</code> (Number): Indicates the starting index within the response array from which results are displayed.</li>
+<li><code>search</code> (String): Returns accounts with full or partial matches for the value sent in this parameter.</li>
+<li><code>status</code> (String): Indicates the status of the account. Possible values: 
+
+<ul>
+<li><code>pending</code></li>
+<li><code>provision</code></li>
+<li><code>success</code></li>
+<li><code>enabled</code></li>
+<li><code>disabled</code></li>
+</ul></li>
+<li><code>type</code> (String): Indicates the account type. Possible values: 
+
+<ul>
+<li><code>identity</code></li>
+<li><code>resource</code></li>
+<li><code>secret</code></li>
+<li><code>integration</code></li>
+</ul></li>
+<li><code>role</code> (String): Indicates the user role on the account. Possible values: 
+
+<ul>
+<li><code>account_owner</code></li>
+<li><code>account_manager</code></li>
+<li><code>account_collaborator</code></li>
+</ul></li>
+<li><code>app</code> (String): Returns the list of accounts that belong to the provided comma-separated app IDs.</li>
+<li><code>collections</code> (String): Returns the list of accounts that belong to the provided comma-separated collection IDs.</li>
+<li><code>ids</code> (String): Returns the list of accounts that match the provided comma-separated account IDs.</li>
+<li><code>teamIds</code> (String): Returns the list of accounts that belong to the provided comma-separated team IDs.</li>
+<li><code>sortBy</code> (String): Sorts the results in one of the following orders and values:
+
+<ul>
+<li><code>sorting_query_by_recently_used</code>: Recently used account. </li>
+<li><code>sorting_query_by_alpha_asc</code>: Ascending in alphabetical order, from A to Z.</li>
+<li><code>sorting_query_by_alpha_desc</code>: Descending in alphabetical order, from Z to A.</li>
+<li><code>sorting_query_by_newest_created</code>: Newest created accounts.</li>
+<li><code>sorting_query_by_oldest_create</code>: Oldest created accounts.</li>
+</ul></li>
+<li><code>provider</code> (String): Returns the list of accounts that belong to the provided comma-separated application or service provider IDs.</li>
+<li><code>filterHidden</code> (Boolean): <code>true</code> to filter results and only include hidden accounts; else, <code>false</code>.</li>
+<li><code>connectedAccounts</code> (Boolean): <code>true</code> if this is an account with access to the secrets of another account; else, <code>false</code>.</li>
+<li><code>proxyAccounts</code> (Boolean): <code>true</code> if this is an account used to access the assets of a SaaS, business hub, or paid social app; else, <code>false</code>.</li>
+<li><code>pendingAccounts</code> (Boolean): <code>true</code> if this is an account pending to be connected to an app integration; else, <code>false</code>.</li>
+<li><code>applicationTypes</code> (String): Indicates the type of application. Possible values:
+
+<ul>
+<li><code>tenant</code></li>
+<li><code>connected _account</code></li>
+</ul></li>
+<li><code>applicationTypesToExclude</code> (String): Indicates the type of application to exclude from the request. It has the same possible values as applicationTypes.</li>
+<li><code>excludeBusinessAssets</code> (Boolean): <code>true</code> to filter results and exclude business hub assets; else, <code>false</code>.</li>
+<li><code>includePendingActions</code> (Boolean): <code>true</code> to filter results and include only accounts with pending actions; else, <code>false</code>.</li>
+<li><code>domain</code> (String): Returns the domain of the application or service provider.</li>
+</ul></li>
+</ul>
+
+<h3 id='response'>Response</h3>
+
+<p>The response JSON object has the following main keys:</p>
+
+<ul>
+<li><code>startIndex</code> (Number): Indicates the starting index within the response array from which results are displayed.</li>
+<li><code>limit</code> (Number): Indicates the number of account objects returned in the accounts array. The default value is 20.</li>
+<li><code>totalResults</code> (Number): Indicates the number of accounts returned, which must be the same number of accounts you see in your workspace.</li>
+<li><code>accounts</code> (Array): Contains the account objects. The returned <a href="#">accounts</a> must correspond to the accounts in your workspace.</li>
+</ul>
+
+<h3 id='example'>Example</h3>
+
+<p>The following is an example of a request to the endpoint:</p>
+
+<p><code>https://api.cerby.com/v1/accounts?excludeBusinessAssets=True&amp;limit=30&amp;sortBy=used&amp;startIndex=1</code></p>
+
+<p>The following is an example of the response object:</p>
+
+<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;startIndex&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;totalResults&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="w">
+  </span><span class="nl">&quot;accounts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;55d3a51f-9181-46b9-9f43-cbb915155c66&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Acme Account&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;johndoe@gmail.com&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;google&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;vaultId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f9b480d4-f68e-4afa-b04a-8adb9498d543&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;idekID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;218095a1-d41f-1234-a278-4541953adac1&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">&quot;workspace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Acme&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;mfaEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;autofillMfa&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;passwordSet&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;passwordVisible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;createdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b62e592c-4986-1234-978b-8223903a4ece&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-03T13:20:32&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-03T13:23:04&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;owner&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;avatar_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;johndoe@gmail.com&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;secret&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="nl">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;phone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1232395629&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rotatedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;manual_rotation&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rotatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-03T13:56:26&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;syncedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;hasBackupCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rotatedById&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b62e592c-4986-4afa-89d4-8223903a4ece&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;domains&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;lastLoginDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-18T04:17:05&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;lastLoginUserName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;John Doe&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;isEmailManaged&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;isPhoneManaged&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;originalEmail&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;originalPhone&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;businessId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;mfaTypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">&quot;rotatedByUser&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;hasTotpVirtualDevice&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;workspacePolicyResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">&quot;mfa_validation&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">&quot;password_rotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">&quot;workspacePolicyCheckDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-03T13:56:27&quot;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='get-the-information-of-an-account-by-id'>Get the information of an account by ID</h2>
+<p>With a <code>GET</code> request to the <code>/v1/accounts/{id}</code> endpoint, 
+you can retrieve the information of a particular account by providing 
+its ID.</p>
+<h3 id='request-2'>Request</h3>
+<p>The following is the HTTP request method for the endpoint:</p></p>
+
+<ul>
+<li>Request URL:** <code>https://api.cerby.com/v1/accounts/{id}</code></li>
+<li>Method:** GET</li>
+<li>Path parameters:**
+
+<ul>
+<li><code>id</code> (String): The ID of the account you want to retrieve.</li>
+</ul></li>
+</ul>
+
+<h3 id='response-2'>Response</h3>
+
+<p>The response is an <a href="#">account</a> object.</p>
+
+<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;55d3a51f-9181-46b9-9f43-cbb915155c66&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Acme Account&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;johndoe@gmail.com&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;provider&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;google&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;vaultId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f9b480d4-f68e-4afa-b04a-8adb9498d543&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;idekID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;218095a1-d41f-1234-a278-4541953adac1&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">&quot;workspace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Acme&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;mfaEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;autofillMfa&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;passwordSet&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;passwordVisible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;createdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b62e592c-4986-1234-978b-8223903a4ece&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-03T13:20:32&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-03T13:23:04&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;owner&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;avatar_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;johndoe@gmail.com&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;secret&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="nl">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;enabled&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;phone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1232395629&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rotatedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;manual_rotation&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rotatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-03T13:56:26&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;syncedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;hasBackupCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rotatedById&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;b62e592c-4986-4afa-89d4-8223903a4ece&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;domains&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;lastLoginDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-18T04:17:05&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;lastLoginUserName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;John Doe&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;isEmailManaged&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;isPhoneManaged&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;originalEmail&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;originalPhone&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;businessId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;mfaTypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">&quot;rotatedByUser&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;hasTotpVirtualDevice&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;workspacePolicyResult&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">&quot;mfa_validation&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">&quot;password_rotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">&quot;workspacePolicyCheckDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-02-03T13:56:27&quot;</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='example-2'>Example</h3>
+<p>The following is an example of a request to the endpoint:</p></p>
+
+<p><code>https://api.cerby.com/v1/accounts/55d3a51f-9181-46b9-9f43-cbb915155c66</code></p>
 
       </div>
       <div class="dark-box">
