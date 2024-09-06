@@ -286,7 +286,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-60265389.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-d7f9f93a.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-966d6edc.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-024da600.js"></script>
 
@@ -331,6 +331,15 @@
             <a href="#welcome-to-the-cerby-developer-portal" class="toc-h1 toc-link" data-title="Welcome to the Cerby developer portal!">Welcome to the Cerby developer portal!</a>
           </li>
           <li>
+            <a href="#explore-the-cerby-api" class="toc-h1 toc-link" data-title="Explore the Cerby API">Explore the Cerby API</a>
+          </li>
+          <li>
+            <a href="#authorization" class="toc-h1 toc-link" data-title="Authorization">Authorization</a>
+          </li>
+          <li>
+            <a href="#related-artciles" class="toc-h1 toc-link" data-title="Related artciles">Related artciles</a>
+          </li>
+          <li>
             <a href="#accounts" class="toc-h1 toc-link" data-title="Accounts">Accounts</a>
               <ul class="toc-list-h2">
                   <li>
@@ -356,6 +365,91 @@ but also the leap into electronic typesetting, remaining essentially unchanged.
 It was popularised in the 1960s with the release of Letraset sheets containing 
 Lorem Ipsum passages, and more recently with desktop publishing software like 
 Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+<h1 id='explore-the-cerby-api'>Explore the Cerby API</h1>
+
+<p>This article describes the capabilities of the Cerby API for 
+retrieving user and account data and managing users from app 
+integrations.</p>
+
+<p>Cerby has built a public application programming interface (API) 
+that enables you to retrieve information about workspace users and 
+accounts stored in the Cerby platform. Also, you can perform user 
+management actions for software-as-a-service (SaaS) and paid 
+social apps connected to a <a href="https://help.cerby.com/en/articles/6831152-explore-apps">Cerby App integration</a> 
+(formerly known as tenants), such as inviting and removing users, 
+updating roles, and checking for available roles.</p>
+
+<p>The Cerby API follows RESTful principles and the 
+<a href="https://spec.openapis.org/oas/latest.html">OpenAPI 3.0 Specifications</a>, 
+and communicates over HTTPS for secure data transmission. </p>
+
+<p>To authorize your requests, you must provide an API or bearer token 
+that can only be generated and retrieved from the Cerby web app 
+after authenticating into your corporate identity provider, such as 
+Okta or Entra ID. Based on Cerby’s role-based access control (RBAC) 
+system, this token determines the endpoints and data you can access 
+depending on your workspace and item role.</p>
+
+<p>The Cerby API supports the following HTTP request methods:</p>
+
+<ul>
+<li>GET requests to the following endpoints to retrieve information 
+about the accounts stored in the Cerby platform:
+
+<ul>
+<li><code>/v1/accounts</code></li>
+<li><code>/v1/accounts/{id}</code></li>
+</ul></li>
+<li>GET requests to the following endpoints to retrieve information 
+about the members of a Cerby workspace and the accounts they have 
+access to:
+
+<ul>
+<li><code>/v1/admin/users</code></li>
+<li><code>/v1/users/{id}/accounts</code></li>
+</ul></li>
+<li>GET requests to the following endpoint to retrieve the available 
+roles for a SaaS or paid social app connected to a Cerby App 
+integration or for a specific asset:
+
+<ul>
+<li><code>external/v1/tenants/{id}/info</code>
+POST requests to the following endpoints to start the automated 
+tasks to invite or remove users of a SaaS or paid social app 
+connected to a Cerby App integration and update their role:</li>
+<li><code>/external/v1/tenants/{id}/invite</code></li>
+<li><code>/external/v1/tenants/{id}/revoke</code></li>
+<li><code>/external/v1/tenants/{id}/update</code></li>
+</ul></li>
+</ul>
+
+<h1 id='authorization'>Authorization</h1>
+
+<p>All requests to the Cerby API must be authorized using a valid API 
+token generated via the Cerby web app or a bearer token. API tokens 
+must be included in the <strong>X-API-Key</strong> header of each API request, whereas 
+bearer tokens must be in the <strong>Authorization</strong> header. </p>
+
+<p>When performing a request, the Cerby API first tries to authorize it 
+via the API token. If the API token is not present, authorization 
+is via a bearer token. If none of these tokens are present, the 
+Cerby API returns a 401 error.</p>
+
+<p>For more information on how to generate and retrieve a token, read the 
+articles <a href="#">Generate an API</a> token and <a href="#">Retrieve a bearer token</a>.</p>
+
+<h1 id='related-artciles'>Related artciles</h1>
+
+<p>The following articles contain more information about how to use the Cerby API:</p>
+
+<ul>
+<li>Explore the API and bearer tokens</li>
+<li>Generate an API token </li>
+<li>Retrieve a bearer token</li>
+<li>Data definitions</li>
+<li>API endpoints reference</li>
+</ul>
 
 <h1 id='accounts'>Accounts</h1>
 
