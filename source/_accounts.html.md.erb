@@ -1,0 +1,120 @@
+# Accounts
+
+In Cerby, accounts are digital records that contain user login information for a particular application or service provider. An **`account`** object contains information about your login credentials on a specific website, such as your username, password, and other relevant attributes within the context of your workspace.
+
+An **`account`** object is created in Cerby when you perform any of the following actions:
+
+* Add an account manually through the Cerby web app or mobile app.
+* Autosave an account at login or signup through the Cerby browser extension
+* Import items from your password manager.
+
+You can retrieve all the accounts to which you have the Owner role or specific accounts using the ID.
+
+## The account object
+The following table describes the **`account`** object's attributes:
+
+<table>
+  <tr>
+    <th style="width: 40%;">Attribute</th>
+    <th style="width: 60%;">Description</th>
+  </tr>
+  <tr>
+    <td><code><b>id</b></code><br><em>string</em></td>
+    <td>The unique identifier for the account.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes</b></code><br><em>object or dictionary</em></td>
+    <td>The attributes of the account.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes.label</b></code><br><em>string</em></td>
+    <td>The name or label of the account.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes.application</b></code><br><em>string</em></td>
+    <td>The application or service provider to which the account belongs.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes.createdAt</b></code><br><em>string</em></td>
+    <td>The date when the account was created in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8610 format</a>.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes.createdBy</b></code><br><em>string</em></td>
+    <td>The ID of the user who created the account.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes.updatedAt</b></code><br><em>string</em></td>
+    <td>The date when the account was last updated in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8610 format</a>.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes.updatedBy</b></code><br><em>string</em></td>
+    <td>The ID of the user who last updated the account.</td>
+  </tr>
+</table>
+
+The following is a sample response object:
+
+```json
+{
+   "id": "40f74dba-31e7-41db-9035-9f3a35b884c8",
+   "type": "account",
+   "attributes": {
+     "label": "my awesome account",
+     "application": "instagram",
+     "createdAt": "2007-01-09T15:41:27.000Z",
+     "createdBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc",
+     "updatedAt": "2007-01-09T15:41:27.000Z",
+     "updatedBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"
+  }
+}
+```
+
+## Retrieve all accounts
+With a **`GET`** request to the **`/accounts`** endpoint, you can retrieve a list of all your accounts in Cerby.
+
+### Parameters
+The following table describes the query parameters of a request:
+
+<table>
+  <tr>
+    <th style="width: 30%;">Parameter</th>
+    <th style="width: 15%;">Required</th>
+    <th style="width: 55%;">Description</th>
+  </tr>
+  <tr>
+    <td><code><b>page[number]</b></code><br><em>integer</em></td>
+    <td>Required</td>
+    <td>The page number to retrieve from a paginated list. The default value is 1.</td>
+  </tr>
+  <tr>
+    <td><code><b>page[size]</b></code><br><em>integer</em></td>
+    <td>Required</td>
+    <td>The number of accounts to display per page. The default value is 25.</td>
+  </tr>
+  <tr>
+    <td><code><b>filter[application]</b></code><br><em>array</em></td>
+    <td>Optional</td>
+    <td>A comma-separated list of applications to filter the accounts to retrieve.</td>
+  </tr>
+</table>
+
+### Example
+The following is an example of a request to the endpoint:
+
+```json
+{
+   "id": "40f74dba-31e7-41db-9035-9f3a35b884c8",
+   "type": "account",
+   "attributes": {
+     "label": "my awesome account",
+     "application": "instagram",
+     "createdAt": "2007-01-09T15:41:27.000Z",
+     "createdBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc",
+     "updatedAt": "2007-01-09T15:41:27.000Z",
+     "updatedBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"
+  }
+}
+```
+
+## Retrieve account by ID
+WIP

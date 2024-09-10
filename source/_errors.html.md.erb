@@ -1,0 +1,51 @@
+# Errors
+
+The Cerby API uses the following standard HTTP response codes to identify the status of each API request. 
+
+* **`2xx`:** Indicates successful requests.
+* **`4xx`:** Indicates errors caused by the information provided in the request, such as missing parameters or incorrect IDs.
+
+The following table describes each HTTP response code:
+
+<table>
+  <tr>
+    <th style="width: 15%;">Code</th>
+    <th style="width: 25%;">Status</th>
+    <th style="width: 60%;">Description</th>
+  </tr>
+  <tr>
+    <td><code><b>200</b></code></td>
+    <td>OK</td>
+    <td>The request was successful.</td>
+  </tr>
+  <tr>
+    <td><code><b>400</b></code></td>
+    <td>Bad request</td>
+    <td>The server could not understand the request due to invalid syntax or missing parameters.</td>
+  </tr>
+  <tr>
+    <td><code><b>401</b></code></td>
+    <td>Unauthorized</td>
+    <td>The request failed by an unknown error.</td>
+  </tr>
+  <tr>
+    <td><code><b>402</b></code></td>
+    <td>Request failed</td>
+    <td>The request failed by an unknown error.</td>
+  </tr>
+  <tr>
+    <td><code><b>403</b></code></td>
+    <td>Forbidden</td>
+    <td>The API or bearer token has no permissions to perform the request.</td>
+  </tr>
+  <tr>
+    <td><code><b>404</b></code></td>
+    <td>Not found</td>
+    <td>The requested resource could not be found.</td>
+  </tr>
+  <tr>
+    <td><code><b>429</b></code></td>
+    <td>Too many requests</td>
+    <td>The user has sent too many requests in a given time.</td>
+  </tr>
+</table>
