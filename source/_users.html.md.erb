@@ -13,20 +13,15 @@ or Entra ID (formerly Azure AD).
 
 With the Cerby API, you can retrieve all users or specific users by providing their ID. 
 
-> **IMPORTANT:** You can only retrieve users if you have the workspace **Admin**, **Super Admin**, 
-or **Owner** role. Your permissions are determined by your API or bearer token, based on 
-Cerby’s RBAC system.
+<aside class="warning">
+<b>IMPORTANT:</b> You can only retrieve users if you have the workspace <b>Admin</b>, 
+<b>Super Admin</b>, or <b>Owner</b> role. Your permissions are determined by your API 
+or bearer token, based on Cerby’s RBAC system.
+</aside>
 
-| Attribute | Description |
-| --------- | ----------- |
-| **`id`** <p>string</p> | The unique identifier of the user. |
-| **`attributes`** <p>object or dictionary</p> | The attributes of the user.|
-| &nbsp;&nbsp;&nbsp;&nbsp;**`firstName`**<p>&nbsp;&nbsp;&nbsp;&nbsp;string</p> | The user name. |
-| &nbsp;&nbsp;&nbsp;&nbsp;**`lastName`**<p>&nbsp;&nbsp;&nbsp;&nbsp;string</p> | The user last name. |
-| &nbsp;&nbsp;&nbsp;&nbsp;**`email`**<p>&nbsp;&nbsp;&nbsp;&nbsp;string</p> | The user email. |
-| &nbsp;&nbsp;&nbsp;&nbsp;**`status`**<p>&nbsp;&nbsp;&nbsp;&nbsp;string</p> | The user status. |
+> The following is a sample response object:
 
-<pre><code class="language-python">
+```json
 {
   "id": "6d23c85b-d3f9-46c7-bb34-7c88680087c5",
   "type": "user",
@@ -42,4 +37,13 @@ Cerby’s RBAC system.
     "lastActivity": "2024-09-05T20:46:14.357000"
     }
 }
-</pre></code>
+```
+
+| Attribute | Description |
+| --------- | ----------- |
+| **`id`** *<p>string</p>* | The unique identifier of the user. |
+| **`attributes`** *<p>object or dictionary</p>* | The attributes of the user.|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**`firstName`**<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*string*</p> | The user name. |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**`lastName`**<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*string*</p> | The user last name. |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**`email`**<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*string*</p> | The user email. |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**`status`**<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*string*</p> | The user status. |

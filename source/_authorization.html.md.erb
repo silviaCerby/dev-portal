@@ -6,6 +6,10 @@ API tokens must be included in the **`X-API-Key`** header of each API request, w
 
 When performing a request, the Cerby API first tries to authorize it via the API token; if it is not present, authorization is via a bearer token. If none of these tokens are present, the Cerby API returns a **`401`** error.
 
-> **IMPORTANT:** Your tokens are sensitive resources because they grant access to the data you have saved in your workspace. Avoid sharing them in public repositories or client-side code.
+<aside class="warning">
+<b>IMPORTANT:</b> Your tokens are sensitive resources because they grant access to the 
+data you have saved in your workspace. Avoid sharing them in public repositories 
+or client-side code.
+</aside>
 
 For more information on how to generate and retrieve a token, read the articles [Generate an API token](https://help.cerby.com/en/articles/9450943-generate-an-api-token) and [Retrieve a bearer token](https://help.cerby.com/en/articles/9450993-retrieve-a-bearer-token).
