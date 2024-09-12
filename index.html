@@ -286,7 +286,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-d7f9f93a.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-aab9f3fd.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-966d6edc.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-024da600.js"></script>
 
@@ -373,9 +373,9 @@
 <p>Cerby has built a public API that enables you to retrieve the following data from your workspace in JSON-encoded responses:</p>
 
 <ul>
-<li><a href="accounts.html">Accounts</a></li>
-<li><a href="users.html">Users</a></li>
-<li><a href="business-hubs.html">Business hubs</a></li>
+<li><a href="#accounts">Accounts</a></li>
+<li><a href="#users">Users</a></li>
+<li><a href="#business-hubs">Business hubs</a></li>
 </ul>
 
 <p>The Cerby API follows RESTful principles and the <a href="https://spec.openapis.org/oas/latest.html">OpenAPI 3.0 Specifications</a>, and communicates over HTTPS for secure data transmission. </p>
@@ -393,7 +393,7 @@
 <p>When performing a request, the Cerby API first tries to authorize it via the API token; if it is not present, authorization is via a bearer token. If none of these tokens are present, the Cerby API returns a <strong><code>401</code></strong> error.</p>
 
 <blockquote>
-<p>IMPORTANT: Your tokens are sensitive resources because they grant access to the data you have saved in your workspace. Avoid sharing them in public repositories or client-side code.</p>
+<p><strong>IMPORTANT:</strong> Your tokens are sensitive resources because they grant access to the data you have saved in your workspace. Avoid sharing them in public repositories or client-side code.</p>
 </blockquote>
 
 <p>For more information on how to generate and retrieve a token, read the articles <a href="https://help.cerby.com/en/articles/9450943-generate-an-api-token">Generate an API token</a> and <a href="https://help.cerby.com/en/articles/9450993-retrieve-a-bearer-token">Retrieve a bearer token</a>.</p>
@@ -454,9 +454,13 @@
 
 <h1 id='accounts'>Accounts</h1>
 
-<p>In Cerby, accounts are digital records that contain user login information for a particular application or service provider. An <strong><code>account</code></strong> object contains information about your login credentials on a specific website, such as your username, password, and other relevant attributes within the context of your workspace.</p>
+<p>In Cerby, accounts are digital records that contain user login information for a 
+particular application or service provider. An <strong><code>account</code></strong> object contains information 
+about your login credentials on a specific website, such as your username, password, and 
+other relevant attributes within the context of your workspace.</p>
 
-<p>An <strong><code>account</code></strong> object is created in Cerby when you perform any of the following actions:</p>
+<p>An <strong><code>account</code></strong> object is created in Cerby when you perform any of the following 
+actions:</p>
 
 <ul>
 <li>Add an account manually through the Cerby web app or mobile app.</li>
@@ -572,7 +576,76 @@
 
 <h1 id='users'>Users</h1>
 
-<p>WIP</p>
+<p>In Cerby, users are individuals who have access to a workspace and can create, protect, 
+and manage items. A user object contains information about the user name, email, 
+workspace role, and other relevant attributes within the context of your workspace.</p>
+
+<p>A user object is created in Cerby when you perform any of the following actions:</p>
+
+<ul>
+<li>Provision a user in Cerby from your corporate identity provider (IdP), such as Okta
+or Entra ID (formerly Azure AD).</li>
+<li>Invite a user to join a local user workspace, with an identity managed by Cerby.</li>
+<li>Invite a user to join a workspace as a guest user, with an identity managed by Cerby.</li>
+</ul>
+
+<p>With the Cerby API, you can retrieve all users or specific users by providing their ID. </p>
+
+<blockquote>
+<p><strong>IMPORTANT:</strong> You can only retrieve users if you have the workspace <strong>Admin</strong>, <strong>Super Admin</strong>, 
+or <strong>Owner</strong> role. Your permissions are determined by your API or bearer token, based on 
+Cerby’s RBAC system.</p>
+</blockquote>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong><code>id</code></strong> <p>string</p></td>
+<td>The unique identifier of the user.</td>
+</tr>
+<tr>
+<td><strong><code>attributes</code></strong> <p>object or dictionary</p></td>
+<td>The attributes of the user.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>firstName</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;string</p></td>
+<td>The user name.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>lastName</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;string</p></td>
+<td>The user last name.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>email</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;string</p></td>
+<td>The user email.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>status</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;string</p></td>
+<td>The user status.</td>
+</tr>
+</tbody></table>
+
+<p><pre><code class="language-python">
+{
+  &quot;id&quot;: &quot;6d23c85b-d3f9-46c7-bb34-7c88680087c5&quot;,
+  &quot;type&quot;: &quot;user&quot;,
+  &quot;attributes&quot;: {
+    &quot;firstName&quot;: &quot;Alberto&quot;,
+    &quot;lastName&quot;: &quot;Copado&quot;,
+    &quot;email&quot;: &quot;alberto@cerby.com&quot;,
+    &quot;status&quot;: &quot;live&quot;,
+    &quot;role&quot;: &quot;workspace_super_admin&quot;,
+    &quot;isGuest&quot;: false,
+    &quot;createdAt&quot;: &quot;2024-01-04T15:36:54&quot;,
+    &quot;updatedAt&quot;: &quot;2024-07-08T19:30:56&quot;,
+    &quot;lastActivity&quot;: &quot;2024-09-05T20:46:14.357000&quot;
+    }
+}
+</pre></code></p>
 
 <h1 id='business-hubs'>Business hubs</h1>
 
