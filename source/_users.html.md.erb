@@ -23,12 +23,12 @@ or bearer token, based on Cerby’s RBAC system.
 
 ```json
 {
-  "id": "6d23c85b-d3f9-46c7-bb34-7c88680087c5",
+  "id": "6d23c85b-d3f9-34c7-bb34-7c00000000c5",
   "type": "user",
   "attributes": {
-    "firstName": "Alberto",
-    "lastName": "Copado",
-    "email": "alberto@cerby.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@doe.com",
     "status": "live",
     "role": "workspace_super_admin",
     "isGuest": false,
@@ -39,11 +39,42 @@ or bearer token, based on Cerby’s RBAC system.
 }
 ```
 
-| Attribute | Description |
-| --------- | ----------- |
-| **`id`** *<p>string</p>* | The unique identifier of the user. |
-| **`attributes`** *<p>object or dictionary</p>* | The attributes of the user.|
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**`firstName`**<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*string*</p> | The user name. |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**`lastName`**<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*string*</p> | The user last name. |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**`email`**<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*string*</p> | The user email. |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**`status`**<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*string*</p> | The user status. |
+<table>
+  <tr>
+    <th style="width: 40%;">Attribute</th>
+    <th style="width: 60%;">Description</th>
+  </tr>
+  <tr>
+    <td><code><b>id</b></code><br><em>string</em></td>
+    <td>The unique identifier for the user.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes</b></code><br><em>object or dictionary</em></td>
+    <td>The attributes of the account.</td>
+  </tr>
+  <tr>
+    <td colspan=2>
+    <details>
+        <summary><a>View object attributes</a></summary>
+        <table>
+          <tr>
+            <td><code><b>firstName</b></code><br><em>string</em></td>
+            <td>The user’s first name</td>
+          </tr>
+          <tr>
+            <td><code><b>lastName</b></code><br><em>string</em></td>
+            <td>The user’s last name</td>
+          </tr>
+          <tr>
+            <td><code><b>email</b></code><br><em>string</em></td>
+            <td>The user’s email</td>
+          </tr>
+          <tr>
+            <td><code><b>status</b></code><br><em>string</em></td>
+            <td>The user’s current status</td>
+          </tr>
+        </table>
+      </details>
+    </td>
+  </tr>
+</table>

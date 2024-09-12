@@ -83,7 +83,7 @@ With a **`GET`** request to the **`/accounts`** endpoint, you can retrieve a lis
 
 ```json
 {
-   "id": "40f74dba-31e7-41db-9035-9f3a35b884c8",
+   "id": "40f74dba-1234-41db-9035-9f3a35b884c8",
    "type": "account",
    "attributes": {
      "label": "my awesome account",
@@ -122,4 +122,38 @@ The following table describes the query parameters of a request:
 </table>
 
 ## Retrieve account by ID
-WIP
+
+This is an example of a collapsible table:
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Description</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Item 1</td>
+      <td>This is a brief description</td>
+      <td>
+        <details>
+          <summary>View Details</summary>
+          <p>This content is hidden by default. Click "View Details" to expand.</p>
+          <p>You can add more details here.</p>
+        </details>
+      </td>
+    </tr>
+    <tr>
+      <td>Item 2</td>
+      <td>Another brief description</td>
+      <td>
+        <details>
+          <summary>View More</summary>
+          <p>Additional content for this item.</p>
+        </details>
+      </td>
+    </tr>
+  </tbody>
+</table>
