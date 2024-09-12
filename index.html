@@ -544,7 +544,7 @@ actions:</p>
 </blockquote>
 
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40f74dba-31e7-41db-9035-9f3a35b884c8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40f74dba-1234-41db-9035-9f3a35b884c8"</span><span class="p">,</span><span class="w">
    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
      </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my awesome account"</span><span class="p">,</span><span class="w">
@@ -584,7 +584,40 @@ actions:</p>
 
 <h2 id='retrieve-account-by-id'>Retrieve account by ID</h2>
 
-<p>WIP</p>
+<p>This is an example of a collapsible table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Description</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Item 1</td>
+      <td>This is a brief description</td>
+      <td>
+        <details>
+          <summary>View Details</summary>
+          <p>This content is hidden by default. Click "View Details" to expand.</p>
+          <p>You can add more details here.</p>
+        </details>
+      </td>
+    </tr>
+    <tr>
+      <td>Item 2</td>
+      <td>Another brief description</td>
+      <td>
+        <details>
+          <summary>View More</summary>
+          <p>Additional content for this item.</p>
+        </details>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <h1 id='users'>Users</h1>
 
@@ -614,12 +647,12 @@ or bearer token, based on Cerby’s RBAC system.
 </blockquote>
 
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6d23c85b-d3f9-46c7-bb34-7c88680087c5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6d23c85b-d3f9-34c7-bb34-7c00000000c5"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alberto"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Copado"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alberto@cerby.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_super_admin"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"isGuest"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
@@ -630,37 +663,45 @@ or bearer token, based on Cerby’s RBAC system.
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong><code>id</code></strong> <em><p>string</p></em></td>
-<td>The unique identifier of the user.</td>
-</tr>
-<tr>
-<td><strong><code>attributes</code></strong> <em><p>object or dictionary</p></em></td>
-<td>The attributes of the user.</td>
-</tr>
-<tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>firstName</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>string</em></p></td>
-<td>The user name.</td>
-</tr>
-<tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>lastName</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>string</em></p></td>
-<td>The user last name.</td>
-</tr>
-<tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>email</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>string</em></p></td>
-<td>The user email.</td>
-</tr>
-<tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>status</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>string</em></p></td>
-<td>The user status.</td>
-</tr>
-</tbody></table>
+<table>
+  <tr>
+    <th style="width: 40%;">Attribute</th>
+    <th style="width: 60%;">Description</th>
+  </tr>
+  <tr>
+    <td><code><b>id</b></code><br><em>string</em></td>
+    <td>The unique identifier for the user.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes</b></code><br><em>object or dictionary</em></td>
+    <td>The attributes of the account.</td>
+  </tr>
+  <tr>
+    <td colspan=2>
+    <details>
+        <summary><a>View object attributes</a></summary>
+        <table>
+          <tr>
+            <td><code><b>firstName</b></code><br><em>string</em></td>
+            <td>The user’s first name</td>
+          </tr>
+          <tr>
+            <td><code><b>lastName</b></code><br><em>string</em></td>
+            <td>The user’s last name</td>
+          </tr>
+          <tr>
+            <td><code><b>email</b></code><br><em>string</em></td>
+            <td>The user’s email</td>
+          </tr>
+          <tr>
+            <td><code><b>status</b></code><br><em>string</em></td>
+            <td>The user’s current status</td>
+          </tr>
+        </table>
+      </details>
+    </td>
+  </tr>
+</table>
 
 <h1 id='business-hubs'>Business hubs</h1>
 
