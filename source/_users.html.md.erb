@@ -1,3 +1,45 @@
 # Users
 
-WIP
+In Cerby, users are individuals who have access to a workspace and can create, protect, 
+and manage items. A user object contains information about the user name, email, 
+workspace role, and other relevant attributes within the context of your workspace.
+
+A user object is created in Cerby when you perform any of the following actions:
+
+* Provision a user in Cerby from your corporate identity provider (IdP), such as Okta
+or Entra ID (formerly Azure AD).
+* Invite a user to join a local user workspace, with an identity managed by Cerby.
+* Invite a user to join a workspace as a guest user, with an identity managed by Cerby.
+
+With the Cerby API, you can retrieve all users or specific users by providing their ID. 
+
+> **IMPORTANT:** You can only retrieve users if you have the workspace **Admin**, **Super Admin**, 
+or **Owner** role. Your permissions are determined by your API or bearer token, based on 
+Cerby’s RBAC system.
+
+| Attribute | Description |
+| --------- | ----------- |
+| **`id`** <p>string</p> | The unique identifier of the user. |
+| **`attributes`** <p>object or dictionary</p> | The attributes of the user.|
+| &nbsp;&nbsp;&nbsp;&nbsp;**`firstName`**<p>&nbsp;&nbsp;&nbsp;&nbsp;string</p> | The user name. |
+| &nbsp;&nbsp;&nbsp;&nbsp;**`lastName`**<p>&nbsp;&nbsp;&nbsp;&nbsp;string</p> | The user last name. |
+| &nbsp;&nbsp;&nbsp;&nbsp;**`email`**<p>&nbsp;&nbsp;&nbsp;&nbsp;string</p> | The user email. |
+| &nbsp;&nbsp;&nbsp;&nbsp;**`status`**<p>&nbsp;&nbsp;&nbsp;&nbsp;string</p> | The user status. |
+
+<pre><code class="language-python">
+{
+  "id": "6d23c85b-d3f9-46c7-bb34-7c88680087c5",
+  "type": "user",
+  "attributes": {
+    "firstName": "Alberto",
+    "lastName": "Copado",
+    "email": "alberto@cerby.com",
+    "status": "live",
+    "role": "workspace_super_admin",
+    "isGuest": false,
+    "createdAt": "2024-01-04T15:36:54",
+    "updatedAt": "2024-07-08T19:30:56",
+    "lastActivity": "2024-09-05T20:46:14.357000"
+    }
+}
+</pre></code>
