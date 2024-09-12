@@ -286,7 +286,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-aab9f3fd.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-7cd3b771.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-966d6edc.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-024da600.js"></script>
 
@@ -392,9 +392,11 @@
 
 <p>When performing a request, the Cerby API first tries to authorize it via the API token; if it is not present, authorization is via a bearer token. If none of these tokens are present, the Cerby API returns a <strong><code>401</code></strong> error.</p>
 
-<blockquote>
-<p><strong>IMPORTANT:</strong> Your tokens are sensitive resources because they grant access to the data you have saved in your workspace. Avoid sharing them in public repositories or client-side code.</p>
-</blockquote>
+<aside class="warning">
+<b>IMPORTANT:</b> Your tokens are sensitive resources because they grant access to the 
+data you have saved in your workspace. Avoid sharing them in public repositories 
+or client-side code.
+</aside>
 
 <p>For more information on how to generate and retrieve a token, read the articles <a href="https://help.cerby.com/en/articles/9450943-generate-an-api-token">Generate an API token</a> and <a href="https://help.cerby.com/en/articles/9450993-retrieve-a-bearer-token">Retrieve a bearer token</a>.</p>
 
@@ -472,7 +474,25 @@ actions:</p>
 
 <h2 id='the-account-object'>The account object</h2>
 
-<p>The following table describes the <strong><code>account</code></strong> object&#39;s attributes:</p>
+<blockquote>
+<p>The following is a sample response object:</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40f74dba-31e7-41db-9035-9f3a35b884c8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my awesome account"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"application"</span><span class="p">:</span><span class="w"> </span><span class="s2">"instagram"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2007-01-09T15:41:27.000Z"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2007-01-09T15:41:27.000Z"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<p>The following table describes the <strong><code>account</code></strong> object attributes:</p>
 
 <table>
   <tr>
@@ -513,24 +533,31 @@ actions:</p>
   </tr>
 </table>
 
-<p>The following is a sample response object:</p>
+<h2 id='retrieve-all-accounts'>Retrieve all accounts</h2>
 
-<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;40f74dba-31e7-41db-9035-9f3a35b884c8&quot;</span><span class="p">,</span><span class="w">
-   </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;account&quot;</span><span class="p">,</span><span class="w">
-   </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-     </span><span class="nl">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my awesome account&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;application&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;instagram&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2007-01-09T15:41:27.000Z&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;createdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2007-01-09T15:41:27.000Z&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;updatedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc&quot;</span><span class="w">
+<p>With a <strong><code>GET</code></strong> request to the <strong><code>/accounts</code></strong> endpoint, you can retrieve a list of all your accounts in Cerby.</p>
+
+<h3 id='parameters'>Parameters</h3>
+
+<blockquote>
+<p>The following is an example of a request to the endpoint:</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40f74dba-31e7-41db-9035-9f3a35b884c8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my awesome account"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"application"</span><span class="p">:</span><span class="w"> </span><span class="s2">"instagram"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2007-01-09T15:41:27.000Z"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2007-01-09T15:41:27.000Z"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='retrieve-all-accounts'>Retrieve all accounts</h2>
-<p>With a <strong><code>GET</code></strong> request to the <strong><code>/accounts</code></strong> endpoint, you can retrieve a list of all your accounts in Cerby.</p>
-<h3 id='parameters'>Parameters</h3>
-<p>The following table describes the query parameters of a request:</p></p>
+</span></code></pre></div>
+
+<p>The following table describes the query parameters of a request:</p>
 
 <table>
   <tr>
@@ -555,24 +582,9 @@ actions:</p>
   </tr>
 </table>
 
-<h3 id='example'>Example</h3>
+<h2 id='retrieve-account-by-id'>Retrieve account by ID</h2>
 
-<p>The following is an example of a request to the endpoint:</p>
-
-<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;40f74dba-31e7-41db-9035-9f3a35b884c8&quot;</span><span class="p">,</span><span class="w">
-   </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;account&quot;</span><span class="p">,</span><span class="w">
-   </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-     </span><span class="nl">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my awesome account&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;application&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;instagram&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2007-01-09T15:41:27.000Z&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;createdBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2007-01-09T15:41:27.000Z&quot;</span><span class="p">,</span><span class="w">
-     </span><span class="nl">&quot;updatedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc&quot;</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='retrieve-account-by-id'>Retrieve account by ID</h2>
-<p>WIP</p></p>
+<p>WIP</p>
 
 <h1 id='users'>Users</h1>
 
@@ -591,11 +603,32 @@ or Entra ID (formerly Azure AD).</li>
 
 <p>With the Cerby API, you can retrieve all users or specific users by providing their ID. </p>
 
+<aside class="warning">
+<b>IMPORTANT:</b> You can only retrieve users if you have the workspace <b>Admin</b>, 
+<b>Super Admin</b>, or <b>Owner</b> role. Your permissions are determined by your API 
+or bearer token, based on Cerby’s RBAC system.
+</aside>
+
 <blockquote>
-<p><strong>IMPORTANT:</strong> You can only retrieve users if you have the workspace <strong>Admin</strong>, <strong>Super Admin</strong>, 
-or <strong>Owner</strong> role. Your permissions are determined by your API or bearer token, based on 
-Cerby’s RBAC system.</p>
+<p>The following is a sample response object:</p>
 </blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6d23c85b-d3f9-46c7-bb34-7c88680087c5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alberto"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Copado"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alberto@cerby.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_super_admin"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"isGuest"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-04T15:36:54"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-07-08T19:30:56"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastActivity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-05T20:46:14.357000"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 
 <table><thead>
 <tr>
@@ -604,48 +637,30 @@ Cerby’s RBAC system.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td><strong><code>id</code></strong> <p>string</p></td>
+<td><strong><code>id</code></strong> <em><p>string</p></em></td>
 <td>The unique identifier of the user.</td>
 </tr>
 <tr>
-<td><strong><code>attributes</code></strong> <p>object or dictionary</p></td>
+<td><strong><code>attributes</code></strong> <em><p>object or dictionary</p></em></td>
 <td>The attributes of the user.</td>
 </tr>
 <tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>firstName</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;string</p></td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>firstName</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>string</em></p></td>
 <td>The user name.</td>
 </tr>
 <tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>lastName</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;string</p></td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>lastName</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>string</em></p></td>
 <td>The user last name.</td>
 </tr>
 <tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>email</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;string</p></td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>email</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>string</em></p></td>
 <td>The user email.</td>
 </tr>
 <tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>status</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;string</p></td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><code>status</code></strong><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>string</em></p></td>
 <td>The user status.</td>
 </tr>
 </tbody></table>
-
-<p><pre><code class="language-python">
-{
-  &quot;id&quot;: &quot;6d23c85b-d3f9-46c7-bb34-7c88680087c5&quot;,
-  &quot;type&quot;: &quot;user&quot;,
-  &quot;attributes&quot;: {
-    &quot;firstName&quot;: &quot;Alberto&quot;,
-    &quot;lastName&quot;: &quot;Copado&quot;,
-    &quot;email&quot;: &quot;alberto@cerby.com&quot;,
-    &quot;status&quot;: &quot;live&quot;,
-    &quot;role&quot;: &quot;workspace_super_admin&quot;,
-    &quot;isGuest&quot;: false,
-    &quot;createdAt&quot;: &quot;2024-01-04T15:36:54&quot;,
-    &quot;updatedAt&quot;: &quot;2024-07-08T19:30:56&quot;,
-    &quot;lastActivity&quot;: &quot;2024-09-05T20:46:14.357000&quot;
-    }
-}
-</pre></code></p>
 
 <h1 id='business-hubs'>Business hubs</h1>
 
