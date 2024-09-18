@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;json&quot;,&quot;shell&quot;,&quot;javascript&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;json&quot;,&quot;shell&quot;,&quot;http&quot;,&quot;javascript&quot;,&quot;python&quot;]">
     
   <!-- Top Menu-->
 
@@ -319,6 +319,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="json">json</a>
               <a href="#" data-language-name="shell">shell</a>
+              <a href="#" data-language-name="http">http</a>
               <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="python">python</a>
         </div>
@@ -334,7 +335,7 @@
             <a href="#api-reference" class="toc-h1 toc-link" data-title="API reference">API reference</a>
           </li>
           <li>
-            <a href="#authorization" class="toc-h1 toc-link" data-title="Authorization">Authorization</a>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
@@ -343,7 +344,7 @@
             <a href="#accounts" class="toc-h1 toc-link" data-title="Accounts">Accounts</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#the-account-object" class="toc-h2 toc-link" data-title="The account object">The account object</a>
+                    <a href="#the-account-object" class="toc-h2 toc-link" data-title="The account object">The <code>account</code> object</a>
                   </li>
                   <li>
                     <a href="#retrieve-all-accounts" class="toc-h2 toc-link" data-title="Retrieve all accounts">Retrieve all accounts</a>
@@ -353,12 +354,6 @@
                   </li>
               </ul>
           </li>
-          <li>
-            <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
-          </li>
-          <li>
-            <a href="#business-hubs" class="toc-h1 toc-link" data-title="Business hubs">Business hubs</a>
-          </li>
       </ul>
     </div>
     <div class="page-wrapper"> 
@@ -366,7 +361,12 @@
       <div class="content">
         <h1 id='cerby-developer-portal'>Cerby developer portal</h1>
 
-<p>Cerby is an identity, access, and password management platform for disconnected applications that don&#39;t support common identity and security standards. This developer portal contains self-serve tools you can use to seamlessly integrate our services into your applications and systems.</p>
+<p>Cerby is an identity, access, and password management 
+platform for disconnected applications that don’t 
+support common identity and security standards. 
+This developer portal contains self-serve tools 
+you can use to seamlessly integrate our services 
+into your applications and systems.</p>
 
 <h1 id='api-reference'>API reference</h1>
 
@@ -375,30 +375,56 @@
 <ul>
 <li><a href="#accounts">Accounts</a></li>
 <li><a href="#users">Users</a></li>
-<li><a href="#business-hubs">Business hubs</a></li>
+<li><a href="#jobs">Jobs</a></li>
+<li><a href="#secrets">Secrets</a></li>
+<li><a href="#tenants">Tenants</a></li>
+<li><a href="#teams">Teams</a></li>
+<li><a href="#collections">Collections</a></li>
 </ul>
 
-<p>The Cerby API follows RESTful principles and the <a href="https://spec.openapis.org/oas/latest.html">OpenAPI 3.0 Specifications</a>, and communicates over HTTPS for secure data transmission. </p>
+<p>The Cerby API follows RESTful principles and the 
+<a href="https://spec.openapis.org/oas/latest.html">OpenAPI 3.0 Specifications</a> 
+and communicates over HTTPS for secure data transmission. </p>
 
-<p>Based on Cerby&#39;s role-based access control (RBAC) system, the API or bearer token you use for authentication determines the endpoints and data you can access depending on your workspace and item role. </p>
+<p>Based on Cerby’s role-based access control (RBAC) system, the <strong><code>X-API-Key</code></strong> 
+API key you use for authentication determines the endpoints and data you can 
+access depending on your workspace and item role. 
+Learn more about the Cerby API authentication and how to generate the 
+API key in the <a href="#authentication">Authentication</a> section.</p>
 
-<p>The base URL is the following: <strong><code>https://my-workspace.cerby.io/api/v1/</code></strong>. You must replace <strong><code>my-workspace</code></strong> with the name of your workspace.</p>
+<p>The base URL is the following: 
+<strong>&#39;https://my-workspace.cerby.com/api/v1/&#39;</strong>. 
+You must replace <strong>&#39;my-workspace&#39;</strong> with the name of your workspace.</p>
 
-<h1 id='authorization'>Authorization</h1>
+<h1 id='authentication'>Authentication</h1>
 
-<p>The Cerby API uses <a href="https://help.cerby.com/en/articles/9450922-explore-the-api-and-bearer-tokens">API and bearer tokens</a> to authorize requests. You can only generate and retrieve tokens from the Cerby web app after authenticating into your corporate identity provider, such as Okta or Entra ID, to access your workspace. </p>
+<p>The Cerby API uses a Cerby API key to authorize requests. You can only generate and retrieve keys from the Cerby web app after authenticating into your corporate identity provider, such as Okta or Entra ID, to access your workspace. </p>
 
-<p>API tokens must be included in the <strong><code>X-API-Key</code></strong> header of each API request, whereas bearer tokens must be in the <strong><code>Authorization</code></strong> header.</p>
+<p>To generate and retrieve a key, you must follow the instruction in the article Generate an API key with the following scopes (as defined in your code):</p>
 
-<p>When performing a request, the Cerby API first tries to authorize it via the API token; if it is not present, authorization is via a bearer token. If none of these tokens are present, the Cerby API returns a <strong><code>401</code></strong> error.</p>
+<ul>
+<li><strong><code>read:activities</code>:</strong> Enables reading activity data.</li>
+<li><strong><code>read:users</code>:</strong> Enables reading user data.</li>
+<li><strong><code>read:items</code>:</strong> Enables reading general item information.</li>
+<li><strong><code>read:items:accounts</code>:</strong> Enables reading account details for items.</li>
+<li><strong><code>read:items:secrets</code>:</strong> Enables access to sensitive item secrets.</li>
+<li><strong><code>write:tenants</code>:</strong> Enables creating and managing tenants.</li>
+<li><strong><code>read:tenants</code>:</strong> Enables reading tenant information.</li>
+<li><strong><code>read:automations</code>:</strong> Enables reading automation configurations.</li>
+<li><strong><code>write:automations</code>:</strong> Enables modifying automation settings.</li>
+</ul>
+
+<p>API keys must be included in the <strong><code>X-API-Key</code></strong> header of each API request.</p>
 
 <aside class="warning">
-<b>IMPORTANT:</b> Your tokens are sensitive resources because they grant access to the 
-data you have saved in your workspace. Avoid sharing them in public repositories 
-or client-side code.
+<b>IMPORTANT:</b> 
+<ul>
+    <li>If the API key is expired or does not have the correct scopes, the Cerby API returns a `401` error.</li>
+    <li>Your tokens are sensitive resources because they grant access to the 
+    data you have saved in your workspace. Avoid sharing them in public repositories 
+    or client-side code.</li>
+</ul>
 </aside>
-
-<p>For more information on how to generate and retrieve a token, read the articles <a href="https://help.cerby.com/en/articles/9450943-generate-an-api-token">Generate an API token</a> and <a href="https://help.cerby.com/en/articles/9450993-retrieve-a-bearer-token">Retrieve a bearer token</a>.</p>
 
 <h1 id='errors'>Errors</h1>
 
@@ -419,38 +445,21 @@ or client-side code.
   </tr>
   <tr>
     <td><code><b>200</b></code></td>
-    <td>OK</td>
-    <td>The request was successful.</td>
-  </tr>
-  <tr>
-    <td><code><b>400</b></code></td>
-    <td>Bad request</td>
-    <td>The server could not understand the request due to invalid syntax or missing parameters.</td>
+    <td><code>OK</code></td>
+    <td>Indicates that the request has succeeded.</td>
   </tr>
   <tr>
     <td><code><b>401</b></code></td>
-    <td>Unauthorized</td>
-    <td>The request failed by an unknown error.</td>
-  </tr>
-  <tr>
-    <td><code><b>402</b></code></td>
-    <td>Request failed</td>
-    <td>The request failed by an unknown error.</td>
-  </tr>
-  <tr>
-    <td><code><b>403</b></code></td>
-    <td>Forbidden</td>
-    <td>The API or bearer token has no permissions to perform the request.</td>
+    <td><code>Unauthorized</code></td>
+    <td>Indicates that the request has not been applied because it lacks valid authentication credentials for the target resource. 
+    <p>Verify your Cerby API key or generate a new one.</td>
   </tr>
   <tr>
     <td><code><b>404</b></code></td>
-    <td>Not found</td>
-    <td>The requested resource could not be found.</td>
-  </tr>
-  <tr>
-    <td><code><b>429</b></code></td>
-    <td>Too many requests</td>
-    <td>The user has sent too many requests in a given time.</td>
+    <td><code>Not found</code></td>
+    <td>Indicates that the origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
+    <p>Verify your request.
+    </td>
   </tr>
 </table>
 
@@ -472,7 +481,9 @@ actions:</p>
 
 <p>You can retrieve all the accounts to which you have the Owner role or specific accounts using the ID.</p>
 
-<h2 id='the-account-object'>The account object</h2>
+<p><a name="account-object"></a></p>
+
+<h2 id='the-account-object'>The <code>account</code> object</h2>
 
 <blockquote>
 <p>The following is a sample response object:</p>
@@ -508,27 +519,27 @@ actions:</p>
     <td>The attributes of the account.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.label</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>label</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The name or label of the account.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.application</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>application</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The application or service provider to which the account belongs.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.createdAt</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>createdAt</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The date when the account was created in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8610 format</a>.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.createdBy</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>createdBy</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The ID of the user who created the account.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.updatedAt</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>updatedAt</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The date when the account was last updated in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8610 format</a>.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.updatedBy</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>updatedBy</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The ID of the user who last updated the account.</td>
   </tr>
 </table>
@@ -537,181 +548,297 @@ actions:</p>
 
 <p>With a <strong><code>GET</code></strong> request to the <strong><code>/accounts</code></strong> endpoint, you can retrieve a list of all your accounts in Cerby.</p>
 
-<h3 id='parameters'>Parameters</h3>
+<aside class="warning">
+<b>IMPORTANT:</b> The required API key scopes to access this resource are: <code>read:items</code> or <code>read:items:accounts</code>
+</aside>
+
+<h3 id='query-parameters'>Query parameters</h3>
 
 <blockquote>
 <p>The following is an example of a request to the endpoint:</p>
 </blockquote>
 
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40f74dba-1234-41db-9035-9f3a35b884c8"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
-   </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-     </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my awesome account"</span><span class="p">,</span><span class="w">
-     </span><span class="nl">"application"</span><span class="p">:</span><span class="w"> </span><span class="s2">"instagram"</span><span class="p">,</span><span class="w">
-     </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2007-01-09T15:41:27.000Z"</span><span class="p">,</span><span class="w">
-     </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"</span><span class="p">,</span><span class="w">
-     </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2007-01-09T15:41:27.000Z"</span><span class="p">,</span><span class="w">
-     </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40f74dba-31e7-41db-9035-9f3a35b884c8"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my awesome account"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"application"</span><span class="p">:</span><span class="w"> </span><span class="s2">"instagram"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2007-01-09T15:41:27.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2007-01-09T15:41:27.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"updatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/accounts?page[number]=2&amp;page[size]=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/accounts?page[number]=3&amp;page[size]=1"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"maxSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 
-<p>The following table describes the query parameters of a request:</p>
-
-<table>
-  <tr>
-    <th style="width: 30%;">Parameter</th>
-    <th style="width: 15%;">Required</th>
-    <th style="width: 55%;">Description</th>
-  </tr>
-  <tr>
-    <td><code><b>page[number]</b></code><br><em>integer</em></td>
-    <td>Required</td>
-    <td>The page number to retrieve from a paginated list. The default value is 1.</td>
-  </tr>
-  <tr>
-    <td><code><b>page[size]</b></code><br><em>integer</em></td>
-    <td>Required</td>
-    <td>The number of accounts to display per page. The default value is 25.</td>
-  </tr>
-  <tr>
-    <td><code><b>filter[application]</b></code><br><em>array</em></td>
-    <td>Optional</td>
-    <td>A comma-separated list of applications to filter the accounts to retrieve.</td>
-  </tr>
-</table>
-
-<h2 id='retrieve-account-by-id'>Retrieve account by ID</h2>
-
-<p>This is an example of a collapsible table:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Description</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Item 1</td>
-      <td>This is a brief description</td>
-      <td>
-        <details>
-          <summary>View Details</summary>
-          <p>This content is hidden by default. Click "View Details" to expand.</p>
-          <p>You can add more details here.</p>
-        </details>
-      </td>
-    </tr>
-    <tr>
-      <td>Item 2</td>
-      <td>Another brief description</td>
-      <td>
-        <details>
-          <summary>View More</summary>
-          <p>Additional content for this item.</p>
-        </details>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<h1 id='users'>Users</h1>
-
-<p>In Cerby, users are individuals who have access to a workspace and can create, protect, 
-and manage items. A user object contains information about the user name, email, 
-workspace role, and other relevant attributes within the context of your workspace.</p>
-
-<p>A user object is created in Cerby when you perform any of the following actions:</p>
-
-<ul>
-<li>Provision a user in Cerby from your corporate identity provider (IdP), such as Okta
-or Entra ID (formerly Azure AD).</li>
-<li>Invite a user to join a local user workspace, with an identity managed by Cerby.</li>
-<li>Invite a user to join a workspace as a guest user, with an identity managed by Cerby.</li>
-</ul>
-
-<p>With the Cerby API, you can retrieve all users or specific users by providing their ID. </p>
-
-<aside class="warning">
-<b>IMPORTANT:</b> You can only retrieve users if you have the workspace <b>Admin</b>, 
-<b>Super Admin</b>, or <b>Owner</b> role. Your permissions are determined by your API 
-or bearer token, based on Cerby’s RBAC system.
-</aside>
-
 <blockquote>
-<p>The following is a sample response object:</p>
+<p>Unauthorized. The request requires user authentication.</p>
 </blockquote>
 
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6d23c85b-d3f9-34c7-bb34-7c00000000c5"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_super_admin"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"isGuest"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-04T15:36:54"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-07-08T19:30:56"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"lastActivity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-05T20:46:14.357000"</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unauthorized"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unable to access resource."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">401</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unauthorized"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET https://<span class="o">{</span>workspaceName<span class="o">}</span>.cerbyapi.com/v1/accounts <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'X-API-KEY: API_KEY'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">https://{workspaceName}.cerbyapi.com/v1/accounts</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+
+Accept: application/json
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">X-API-KEY</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://{workspaceName}.cerbyapi.com/v1/accounts</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'X-API-KEY'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://{workspaceName}.cerbyapi.com/v1/accounts'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+
+<p>The following table describes the query parameters of a request:</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>page[number]</code></td>
+<td>integer</td>
+<td>false</td>
+<td>The page number to retrieve in the paginated result set.<br/> Default value: <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>page[size]</code></td>
+<td>integer</td>
+<td>false</td>
+<td>The number of items to return per page. </br> Default value : <code>25</code>.</td>
+</tr>
+<tr>
+<td><code>filter[application]</code></td>
+<td>string</td>
+<td>false</td>
+<td>The comma-separated list of applications to filter their associated accounts. </br> For example: <code>mailchimp, asana</code>.</td>
+</tr>
+</tbody></table>
+
+<h3 id='response'>Response</h3>
+
+<p>The following table describes the response status and messages:</p>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>200</code></td>
+<td><code>OK</code></td>
+<td>The JSON array with the account objects requested on the specified page.</td>
+<td><a href="#account-object">Accounts object</a></td>
+</tr>
+<tr>
+<td><code>401</code></td>
+<td><code>Unauthorized</code></td>
+<td>Unauthorized. The request requires user authentication.</td>
+<td><a href="#errors">Error information</a></td>
+</tr>
+</tbody></table>
+
+<h2 id='retrieve-account-by-id'>Retrieve account by ID</h2>
+
+<p>With a <strong><code>GET</code></strong> request to the <code>accounts/{id}</code> endpoint, you can retrieve the information of an account by providing its ID.</p>
+
+<aside class="warning">
+<b>IMPORTANT:</b> The required API key scopes to access this resource are: <code>read:items</code> or <code>read:items:accounts</code>
+</aside>
+
+<h3 id='path-parameters'>Path parameters</h3>
+
+<blockquote>
+<p>The following is an example of a request to the endpoint:</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"application"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unmanaged"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-07-09T02:30:46+00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1aa123f7-4a56-123f-ac7b-bc3cd6d148d4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Acme"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-07-09T02:30:46+00:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-workspace"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123e45ce-6788a-1c01-8ad2-49abc2b659f4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 
-<table>
-  <tr>
-    <th style="width: 40%;">Attribute</th>
-    <th style="width: 60%;">Description</th>
-  </tr>
-  <tr>
-    <td><code><b>id</b></code><br><em>string</em></td>
-    <td>The unique identifier for the user.</td>
-  </tr>
-  <tr>
-    <td><code><b>attributes</b></code><br><em>object or dictionary</em></td>
-    <td>The attributes of the account.</td>
-  </tr>
-  <tr>
-    <td colspan=2>
-    <details>
-        <summary><a>View object attributes</a></summary>
-        <table>
-          <tr>
-            <td><code><b>firstName</b></code><br><em>string</em></td>
-            <td>The user’s first name</td>
-          </tr>
-          <tr>
-            <td><code><b>lastName</b></code><br><em>string</em></td>
-            <td>The user’s last name</td>
-          </tr>
-          <tr>
-            <td><code><b>email</b></code><br><em>string</em></td>
-            <td>The user’s email</td>
-          </tr>
-          <tr>
-            <td><code><b>status</b></code><br><em>string</em></td>
-            <td>The user’s current status</td>
-          </tr>
-        </table>
-      </details>
-    </td>
-  </tr>
-</table>
+<blockquote>
+<p>Unauthorized. The request requires user authentication.</p>
+</blockquote>
 
-<h1 id='business-hubs'>Business hubs</h1>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unauthorized"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unable to access resource."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">401</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unauthorized"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 
-<p>WIP</p>
+<blockquote>
+<p>Not found. The requested resource could not be found.</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_found"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Resource not found."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_found"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET https://<span class="o">{</span>workspaceName<span class="o">}</span>.cerbyapi.com/v1/accounts/<span class="o">{</span><span class="nb">id</span><span class="o">}</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'X-API-KEY: API_KEY'</span>
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">https://{workspaceName}.cerbyapi.com/v1/accounts/{id}</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">X-API-KEY</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://{workspaceName}.cerbyapi.com/v1/accounts/{id}</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'X-API-KEY'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://{workspaceName}.cerbyapi.com/v1/accounts/{id}'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+
+<p>The following table describes the path parameters of a request:</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td>true</td>
+<td>The unique identifier of the resource.</td>
+</tr>
+</tbody></table>
+
+<h3 id='response-2'>Response</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>200</code></td>
+<td><code>OK</code></td>
+<td>The requested account JSON object.</td>
+<td><a href="#account-object">Accountobject</a></td>
+</tr>
+<tr>
+<td><code>401</code></td>
+<td><code>Unauthorized</code></td>
+<td>Unauthorized. The request requires user authentication.</td>
+<td><a href="#errors">Error information</a></td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td><code>Not Found</code></td>
+<td>Not found. The requested resource could not be found.</td>
+<td><a href="#errors">Error information</a></td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="json">json</a>
                 <a href="#" data-language-name="shell">shell</a>
+                <a href="#" data-language-name="http">http</a>
                 <a href="#" data-language-name="javascript">javascript</a>
                 <a href="#" data-language-name="python">python</a>
           </div>
