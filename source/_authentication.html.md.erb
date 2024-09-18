@@ -1,0 +1,27 @@
+# Authentication
+
+The Cerby API uses a Cerby API key to authorize requests. You can only generate and retrieve keys from the Cerby web app after authenticating into your corporate identity provider, such as Okta or Entra ID, to access your workspace. 
+
+To generate and retrieve a key, you must follow the instruction in the article Generate an API key with the following scopes (as defined in your code):
+
+* **`read:activities`:** Enables reading activity data.
+* **`read:users`:** Enables reading user data.
+* **`read:items`:** Enables reading general item information.
+* **`read:items:accounts`:** Enables reading account details for items.
+* **`read:items:secrets`:** Enables access to sensitive item secrets.
+* **`write:tenants`:** Enables creating and managing tenants.
+* **`read:tenants`:** Enables reading tenant information.
+* **`read:automations`:** Enables reading automation configurations.
+* **`write:automations`:** Enables modifying automation settings.
+
+API keys must be included in the **`X-API-Key`** header of each API request.
+
+<aside class="warning">
+<b>IMPORTANT:</b> 
+<ul>
+    <li>If the API key is expired or does not have the correct scopes, the Cerby API returns a `401` error.</li>
+    <li>Your tokens are sensitive resources because they grant access to the 
+    data you have saved in your workspace. Avoid sharing them in public repositories 
+    or client-side code.</li>
+</ul>
+</aside>

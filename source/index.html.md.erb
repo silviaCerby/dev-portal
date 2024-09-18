@@ -4,6 +4,7 @@ title: Cerby developer portal
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
   - json
   - shell
+  - http
   - javascript
   - python
 
@@ -20,10 +21,7 @@ meta:
 
 ---
 
-<%= partial "./main-page/_main.html.md.erb" %>
 <%= partial "_api-reference.html.md.erb" %>
-<%= partial "_authorization.html.md.erb" %>
+<%= partial "_authentication.html.md.erb" %>
 <%= partial "_errors.html.md.erb" %>
 <%= partial "_accounts.html.md.erb" %>
-<%= partial "_users.html.md.erb" %>
-<%= partial "_business-hubs.html.md.erb" %>

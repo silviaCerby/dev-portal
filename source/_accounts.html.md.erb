@@ -14,7 +14,9 @@ actions:
 
 You can retrieve all the accounts to which you have the Owner role or specific accounts using the ID.
 
-## The account object
+<a name="account-object"></a>
+
+## The `account` object
 
 > The following is a sample response object:
 
@@ -49,27 +51,27 @@ The following table describes the **`account`** object attributes:
     <td>The attributes of the account.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.label</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>label</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The name or label of the account.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.application</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>application</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The application or service provider to which the account belongs.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.createdAt</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>createdAt</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The date when the account was created in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8610 format</a>.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.createdBy</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>createdBy</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The ID of the user who created the account.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.updatedAt</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>updatedAt</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The date when the account was last updated in <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8610 format</a>.</td>
   </tr>
   <tr>
-    <td><code><b>attributes.updatedBy</b></code><br><em>string</em></td>
+    <td>&emsp;&emsp;<code><b>updatedBy</b></code><br>&emsp;&emsp;<em>string</em></td>
     <td>The ID of the user who last updated the account.</td>
   </tr>
 </table>
@@ -77,83 +79,229 @@ The following table describes the **`account`** object attributes:
 ## Retrieve all accounts
 With a **`GET`** request to the **`/accounts`** endpoint, you can retrieve a list of all your accounts in Cerby.
 
-### Parameters
+<aside class="warning">
+<b>IMPORTANT:</b> The required API key scopes to access this resource are: <code>read:items</code> or <code>read:items:accounts</code>
+</aside>
+
+### Query parameters
 
 > The following is an example of a request to the endpoint:
 
 ```json
 {
-   "id": "40f74dba-1234-41db-9035-9f3a35b884c8",
-   "type": "account",
-   "attributes": {
-     "label": "my awesome account",
-     "application": "instagram",
-     "createdAt": "2007-01-09T15:41:27.000Z",
-     "createdBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc",
-     "updatedAt": "2007-01-09T15:41:27.000Z",
-     "updatedBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"
+  "data": [
+    {
+      "id": "40f74dba-31e7-41db-9035-9f3a35b884c8",
+      "type": "account",
+      "attributes": {
+        "label": "my awesome account",
+        "application": "instagram",
+        "createdAt": "2007-01-09T15:41:27.000Z",
+        "createdBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc",
+        "updatedAt": "2007-01-09T15:41:27.000Z",
+        "updatedBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"
+      }
+    }
+  ],
+  "links": {
+    "next": "/api/v1/accounts?page[number]=2&page[size]=1",
+    "self": "/api/v1/accounts?page[number]=3&page[size]=1"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 100,
+      "total": 4
+    }
   }
 }
 ```
 
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerbyapi.com/v1/accounts \
+  -H 'Accept: application/json' \
+  -H 'X-API-KEY: API_KEY'
+
+```
+
+```http
+GET https://{workspaceName}.cerbyapi.com/v1/accounts HTTP/1.1
+
+Accept: application/json
+```
+
+```javascript
+const headers = {
+  'Accept':'application/json',
+  'X-API-KEY':'API_KEY'
+};
+
+fetch('https://{workspaceName}.cerbyapi.com/v1/accounts',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'X-API-KEY': 'API_KEY'
+}
+
+r = requests.get('https://{workspaceName}.cerbyapi.com/v1/accounts', headers = headers)
+
+print(r.json())
+```
+
 The following table describes the query parameters of a request:
 
-<table>
-  <tr>
-    <th style="width: 30%;">Parameter</th>
-    <th style="width: 15%;">Required</th>
-    <th style="width: 55%;">Description</th>
-  </tr>
-  <tr>
-    <td><code><b>page[number]</b></code><br><em>integer</em></td>
-    <td>Required</td>
-    <td>The page number to retrieve from a paginated list. The default value is 1.</td>
-  </tr>
-  <tr>
-    <td><code><b>page[size]</b></code><br><em>integer</em></td>
-    <td>Required</td>
-    <td>The number of accounts to display per page. The default value is 25.</td>
-  </tr>
-  <tr>
-    <td><code><b>filter[application]</b></code><br><em>array</em></td>
-    <td>Optional</td>
-    <td>A comma-separated list of applications to filter the accounts to retrieve.</td>
-  </tr>
-</table>
+|Name|Type|Required|Description|
+|------|---|---|---|
+|`page[number]`|integer|false|The page number to retrieve in the paginated result set.<br/> Default value: `1`.|
+|`page[size]`|integer|false|The number of items to return per page. </br> Default value : `25`.|
+|`filter[application]`|string|false|The comma-separated list of applications to filter their associated accounts. </br> For example: `mailchimp, asana`.|
+
+### Response
+The following table describes the response status and messages:
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|`200`|`OK`|The JSON array with the account objects requested on the specified page.|[Accounts object](#account-object)|
+|`401`|`Unauthorized`|Unauthorized. The request requires user authentication.|[Error information](#errors)|
 
 ## Retrieve account by ID
+With a **`GET`** request to the `accounts/{id}` endpoint, you can retrieve the information of an account by providing its ID.
 
-This is an example of a collapsible table:
+<aside class="warning">
+<b>IMPORTANT:</b> The required API key scopes to access this resource are: <code>read:items</code> or <code>read:items:accounts</code>
+</aside>
 
-<table>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Description</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Item 1</td>
-      <td>This is a brief description</td>
-      <td>
-        <details>
-          <summary>View Details</summary>
-          <p>This content is hidden by default. Click "View Details" to expand.</p>
-          <p>You can add more details here.</p>
-        </details>
-      </td>
-    </tr>
-    <tr>
-      <td>Item 2</td>
-      <td>Another brief description</td>
-      <td>
-        <details>
-          <summary>View More</summary>
-          <p>Additional content for this item.</p>
-        </details>
-      </td>
-    </tr>
-  </tbody>
-</table>
+###Path parameters
+
+> The following is an example of a request to the endpoint:
+
+```json
+{
+    "data": {
+        "attributes": {
+            "application": "unmanaged",
+            "createdAt": "2024-07-09T02:30:46+00:00",
+            "createdBy": "1aa123f7-4a56-123f-ac7b-bc3cd6d148d4",
+            "label": "Acme",
+            "updatedAt": "2024-07-09T02:30:46+00:00",
+            "workspace": "my-workspace"
+        },
+        "id": "123e45ce-6788a-1c01-8ad2-49abc2b659f4",
+        "type": "account"
+    }
+}
+```
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerbyapi.com/v1/accounts/{id} \
+  -H 'Accept: application/json' \
+  -H 'X-API-KEY: API_KEY'
+```
+
+```http
+GET https://{workspaceName}.cerbyapi.com/v1/accounts/{id} HTTP/1.1
+Accept: application/json
+```
+
+```javascript
+const headers = {
+  'Accept':'application/json',
+  'X-API-KEY':'API_KEY'
+};
+
+fetch('https://{workspaceName}.cerbyapi.com/v1/accounts/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'X-API-KEY': 'API_KEY'
+}
+r = requests.get('https://{workspaceName}.cerbyapi.com/v1/accounts/{id}', headers = headers)
+print(r.json())
+```
+
+The following table describes the path parameters of a request:
+
+|Name|Type|Required|Description|
+|----|----|---|---|
+|`id`|string|true|The unique identifier of the resource.|
+
+### Response
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|`200`|`OK`|The requested account JSON object.|[Accountobject](#account-object)|
+|`401`|`Unauthorized`|Unauthorized. The request requires user authentication.|[Error information](#errors)|
+|`404`|`Not Found`|Not found. The requested resource could not be found.|[Error information](#errors)|

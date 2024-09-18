@@ -15,37 +15,20 @@ The following table describes each HTTP response code:
   </tr>
   <tr>
     <td><code><b>200</b></code></td>
-    <td>OK</td>
-    <td>The request was successful.</td>
-  </tr>
-  <tr>
-    <td><code><b>400</b></code></td>
-    <td>Bad request</td>
-    <td>The server could not understand the request due to invalid syntax or missing parameters.</td>
+    <td><code>OK</code></td>
+    <td>Indicates that the request has succeeded.</td>
   </tr>
   <tr>
     <td><code><b>401</b></code></td>
-    <td>Unauthorized</td>
-    <td>The request failed by an unknown error.</td>
-  </tr>
-  <tr>
-    <td><code><b>402</b></code></td>
-    <td>Request failed</td>
-    <td>The request failed by an unknown error.</td>
-  </tr>
-  <tr>
-    <td><code><b>403</b></code></td>
-    <td>Forbidden</td>
-    <td>The API or bearer token has no permissions to perform the request.</td>
+    <td><code>Unauthorized</code></td>
+    <td>Indicates that the request has not been applied because it lacks valid authentication credentials for the target resource. 
+    <p>Verify your Cerby API key or generate a new one.</td>
   </tr>
   <tr>
     <td><code><b>404</b></code></td>
-    <td>Not found</td>
-    <td>The requested resource could not be found.</td>
-  </tr>
-  <tr>
-    <td><code><b>429</b></code></td>
-    <td>Too many requests</td>
-    <td>The user has sent too many requests in a given time.</td>
+    <td><code>Not found</code></td>
+    <td>Indicates that the origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
+    <p>Verify your request.
+    </td>
   </tr>
 </table>
