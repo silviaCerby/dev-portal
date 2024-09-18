@@ -1,0 +1,3279 @@
+<!-- Generator: Widdershins v4.0.1 -->
+
+<h1 id="public-api">Public API v0.1.0</h1>
+
+> Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
+
+The first MVP of Cerby’s Public API enables you to retrieve information about your workspace accounts stored in the Cerby platform.
+
+Base URLs:
+
+* <a href="https://{workspaceName}.cerby.io/api/v1">https://{workspaceName}.cerby.io/api/v1</a>
+
+    * **workspaceName** - Workspace name Default: my-workspace
+
+<h1 id="public-api-accounts">Accounts</h1>
+
+## get_accounts
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/accounts \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/accounts HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/accounts',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/accounts',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/accounts', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/accounts', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/accounts");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/accounts", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /accounts`
+
+*Get all accounts*
+
+Retrieve all your accounts in your Cerby workspace.
+
+<h3 id="get_accounts-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|page[number]|query|integer|false|The page number to retrieve in a paginated list.|
+|page[size]|query|integer|false|The number of accounts to return per page.|
+|filter[application]|query|string|false|The comma-separated list of applications to filter their associated accounts.|
+
+> Example responses
+
+> The JSON array with the account objects requested on the specified page.
+
+```json
+{
+  "data": [
+    {
+      "id": "40f74dba-31e7-41db-9035-9f3a35b884c8",
+      "type": "account",
+      "attributes": {
+        "label": "my awesome account",
+        "application": "instagram",
+        "createdAt": "2007-01-09T15:41:27.000Z",
+        "createdBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc",
+        "updatedAt": "2007-01-09T15:41:27.000Z",
+        "updatedBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"
+      }
+    }
+  ],
+  "links": {
+    "next": "/api/v1/accounts?page[number]=2&page[size]=1",
+    "self": "/api/v1/accounts?page[number]=3&page[size]=1"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 100,
+      "total": 4
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+<h3 id="get_accounts-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The JSON array with the account objects requested on the specified page.|[AccountsResponse](#schemaaccountsresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get_accounts_{id}
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/accounts/{id} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/accounts/{id} HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/accounts/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/accounts/{id}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/accounts/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/accounts/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/accounts/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/accounts/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /accounts/{id}`
+
+*Get account by ID *
+
+Retrieve an account by its ID.
+
+<h3 id="get_accounts_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|The unique identifier of the account.|
+
+> Example responses
+
+> The requested account JSON object.
+
+```json
+{
+  "data": {
+    "id": "40f74dba-31e7-41db-9035-9f3a35b884c8",
+    "type": "account",
+    "attributes": {
+      "label": "my awesome account",
+      "application": "instagram",
+      "createdAt": "2007-01-09T15:41:27.000Z",
+      "createdBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc",
+      "updatedAt": "2007-01-09T15:41:27.000Z",
+      "updatedBy": "91c14c1e-fdb1-4859-b0b1-e9f12f45cdfc"
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+<h3 id="get_accounts_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The requested account JSON object.|[AccountResponse](#schemaaccountresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Not found. The requested resource could not be found.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="public-api-users">Users</h1>
+
+## get_users
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/users \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/users HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/users',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/users',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/users', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/users', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/users");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/users", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /users`
+
+*Get all users*
+
+Retrieve all users in your Cerby workspace.
+
+<h3 id="get_users-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|page[number]|query|integer|false|The page number to retrieve in the paginated result set.|
+|page[size]|query|integer|false|The number of users to return per page.|
+
+> Example responses
+
+> The JSON array with the user objects requested on the specified page.
+
+```json
+{
+  "data": [
+    {
+      "id": "6d23c85b-d3f9-46c7-bb34-7c88680087c5",
+      "type": "user",
+      "attributes": {
+        "firstName": "Alberto",
+        "lastName": "Copado",
+        "email": "alberto@cerby.com",
+        "status": "live",
+        "role": "workspace_super_admin",
+        "isGuest": false,
+        "createdAt": "2024-01-04T15:36:54",
+        "updatedAt": "2024-07-08T19:30:56",
+        "lastActivity": "2024-09-05T20:46:14.357000"
+      }
+    }
+  ],
+  "links": {
+    "next": "/api/v1/users?page[number]=2&page[size]=1",
+    "self": "/api/v1/users?page[number]=3&page[size]=1"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 100,
+      "total": 4
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+<h3 id="get_users-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The JSON array with the user objects requested on the specified page.|[UsersResponse](#schemausersresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get_users_{id}
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/users/{id} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/users/{id} HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/users/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/users/{id}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/users/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/users/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/users/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/users/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /users/{id}`
+
+*Get user by ID*
+
+Retrieve a user by their ID.
+
+<h3 id="get_users_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|The unique identifier of the user.|
+
+> Example responses
+
+> The requested user JSON object.
+
+```json
+{
+  "data": {
+    "id": "6d23c85b-d3f9-46c7-bb34-7c88680087c5",
+    "type": "user",
+    "attributes": {
+      "firstName": "Alberto",
+      "lastName": "Copado",
+      "email": "alberto@cerby.com",
+      "status": "live",
+      "role": "workspace_super_admin",
+      "isGuest": false,
+      "createdAt": "2024-01-04T15:36:54",
+      "updatedAt": "2024-07-08T19:30:56",
+      "lastActivity": "2024-09-05T20:46:14.357000"
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+<h3 id="get_users_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The requested user JSON object.|[UserResponse](#schemauserresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Not found. The requested resource could not be found.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="public-api-jobs">Jobs</h1>
+
+## get_jobs_{id}
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/jobs/{id} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/jobs/{id} HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/jobs/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/jobs/{id}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/jobs/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/jobs/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/jobs/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/jobs/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /jobs/{id}`
+
+*Get job by ID*
+
+Retrieve a job by its ID.
+
+<h3 id="get_jobs_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|The unique identifier of the job.|
+
+> Example responses
+
+> The requested job JSON object.
+
+```json
+{
+  "data": {
+    "id": "de927006-5c01-41ba-9a20-2d64151eb53d",
+    "type": "job",
+    "attributes": {
+      "account": {
+        "entity": "account",
+        "id": "ab49ed36-b8ff-4582-a408-fe7ca49e5eb4",
+        "name": "My automation account",
+        "provider": "twitter"
+      },
+      "canRetry": false,
+      "createdAt": "2024-09-08T22:56:37",
+      "createdBy": {
+        "id": "56e075b7-a81e-4ce7-a2a3-a3b5e594648a",
+        "name": "Liam G"
+      },
+      "errorDetails": {
+        "errorType": null,
+        "screenshotUrl": null,
+        "userRequired": null
+      },
+      "hasMoreDetails": false,
+      "payload": null,
+      "response": {},
+      "status": "created",
+      "trigger": "manual",
+      "updatedAt": "2024-09-09T22:56:36",
+      "workflowType": "setup_mfa",
+      "workspacePolicyEnforcementId": null
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+<h3 id="get_jobs_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The requested job JSON object.|[JobResponse](#schemajobresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Not found. The requested resource could not be found.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="public-api-secrets">Secrets</h1>
+
+## get_secrets_{id}
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/secrets/{id} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/secrets/{id} HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/secrets/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/secrets/{id}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/secrets/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/secrets/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/secrets/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/secrets/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /secrets/{id}`
+
+*Get secret by ID*
+
+Retrieve a secret by its ID.
+
+<h3 id="get_secrets_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|The unique identifier of the secret.|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "data": {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "string",
+    "attributes": {
+      "title": "string",
+      "body_secret_id": "a208b24b-83a3-40ca-ab7d-1124ae655184",
+      "requires_identity_challenge": true,
+      "workspace_id": "0967198e-ec7b-4c6b-b4d3-f71244cadbe9",
+      "workspace_name": "string",
+      "created_by": "ee824cad-d7a6-4f48-87dc-e8461a9201c4",
+      "updated_at": "2019-08-24T14:15:22Z",
+      "updated_by": "deea00dc-b6b6-4412-a483-26ac61e1f6fe",
+      "version_id": "9e94c502-ca41-4342-a7f7-af96b444512c",
+      "version": 0,
+      "event_name": "string",
+      "created_at": "2019-08-24T14:15:22Z",
+      "status": "string",
+      "category": "string"
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+<h3 id="get_secrets_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The requested secret JSON object.|[SecretResponse](#schemasecretresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Not found. The requested resource could not be found.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="public-api-tenants">Tenants</h1>
+
+## getTenant
+
+<a id="opIdgetTenant"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/tenant/{id} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/tenant/{id} HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/tenant/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/tenant/{id}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/tenant/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/tenant/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/tenant/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/tenant/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /tenant/{id}`
+
+*Get a tenant by ID*
+
+Retrieve a tenant by its ID.
+
+<h3 id="gettenant-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|The unique identifier of the tenant.|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "data": {
+    "id": "string",
+    "type": "string",
+    "attributes": {
+      "label": "string",
+      "application": "string",
+      "createdAt": "string",
+      "createdBy": "string",
+      "updatedAt": "string",
+      "updatedBy": "string"
+    }
+  },
+  "links": {
+    "self": "string",
+    "next": "string"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 0,
+      "total": 0
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+<h3 id="gettenant-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The requested tenant JSON object.|[AccountResponse](#schemaaccountresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Not found. The requested resource could not be found.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## getTenantEntitlements
+
+<a id="opIdgetTenantEntitlements"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/tenant/{id}/entitlements \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/tenant/{id}/entitlements HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/tenant/{id}/entitlements',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/tenant/{id}/entitlements',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/tenant/{id}/entitlements', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/tenant/{id}/entitlements', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/tenant/{id}/entitlements");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/tenant/{id}/entitlements", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /tenant/{id}/entitlements`
+
+*Get the entitlements of a tenant*
+
+Retrieve the potential roles that are available for assignment in the tenant.
+
+<h3 id="gettenantentitlements-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string|true|The unique identifier of the tenant.|
+
+> Example responses
+
+> A JSON object with the details of the entitlements.
+
+```json
+{
+  "data": [
+    {
+      "attributes": {
+        "group": "primary",
+        "key": "MEMBER",
+        "label": "",
+        "value": "MEMBER"
+      },
+      "id": "MEMBER",
+      "type": "entitlement"
+    },
+    {
+      "attributes": {
+        "group": "primary",
+        "key": "MANAGER",
+        "label": "",
+        "value": "MANAGER"
+      },
+      "id": "MANAGER",
+      "type": "entitlement"
+    },
+    {
+      "attributes": {
+        "group": "primary",
+        "key": "OWNER",
+        "label": "",
+        "value": "OWNER"
+      },
+      "id": "OWNER",
+      "type": "entitlement"
+    }
+  ]
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+<h3 id="gettenantentitlements-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A JSON object with the details of the entitlements.|[PublicTenantEntitlementsOutput](#schemapublictenantentitlementsoutput)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Not found. The requested resource could not be found.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="public-api-teams">Teams</h1>
+
+## get_teams_{id}
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/teams/{id} \
+  -H 'Accept: application/vnd.api+json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/teams/{id} HTTP/1.1
+
+Accept: application/vnd.api+json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/vnd.api+json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/teams/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/vnd.api+json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/teams/{id}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/vnd.api+json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/teams/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/vnd.api+json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/teams/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/teams/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/vnd.api+json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/teams/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /teams/{id}`
+
+*Get a team by ID*
+
+Retrieve a team by its ID.
+
+<h3 id="get_teams_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|The unique identifier of the team.|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "data": {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "team",
+    "attributes": {
+      "name": "string",
+      "workspaceId": "string",
+      "type": "user_managed",
+      "vaultId": "867f3a98-ec66-42f4-abbc-5980239e4a28"
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+<h3 id="get_teams_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The requested team JSON object.|[TeamResponse](#schemateamresponse)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Not found. The requested resource could not be found.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="public-api-collections">Collections</h1>
+
+## get_collections_{id}
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerby.io/api/v1/collections/{id} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET https://{workspaceName}.cerby.io/api/v1/collections/{id} HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('https://{workspaceName}.cerby.io/api/v1/collections/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'https://{workspaceName}.cerby.io/api/v1/collections/{id}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('https://{workspaceName}.cerby.io/api/v1/collections/{id}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','https://{workspaceName}.cerby.io/api/v1/collections/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("https://{workspaceName}.cerby.io/api/v1/collections/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "https://{workspaceName}.cerby.io/api/v1/collections/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /collections/{id}`
+
+*Get a collection by ID*
+
+Retrieve a collection by its ID.
+
+<h3 id="get_collections_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|string(uuid)|true|The unique identifier of the collection.|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "data": {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "collections",
+    "attributes": {
+      "accountCount": 0,
+      "accountProviders": [],
+      "collectionCount": 0,
+      "createdBy": "25a02396-1048-48f9-bf93-102d2fb7895e",
+      "createdAt": "2019-08-24T14:15:22Z",
+      "updatedAt": "2019-08-24T14:15:22Z",
+      "meta": {},
+      "name": "string",
+      "role": "string",
+      "roles": [],
+      "secretCount": 0,
+      "status": "string",
+      "updatedBy": "b0efe45f-0520-4e21-90f0-7e35f137732e",
+      "vaultId": "867f3a98-ec66-42f4-abbc-5980239e4a28"
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+<h3 id="get_collections_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A single collection|[PublicCollectionOutput](#schemapubliccollectionoutput)|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|Unauthorized. The request requires user authentication.|[ErrorsResponse](#schemaerrorsresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Not found. The requested resource could not be found.|[ErrorsResponse](#schemaerrorsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+# Schemas
+
+<h2 id="tocS_Links">Links</h2>
+<!-- backwards compatibility -->
+<a id="schemalinks"></a>
+<a id="schema_Links"></a>
+<a id="tocSlinks"></a>
+<a id="tocslinks"></a>
+
+```json
+{
+  "self": "string",
+  "next": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|self|string|false|none|none|
+|next|string|false|none|none|
+
+<h2 id="tocS_Data">Data</h2>
+<!-- backwards compatibility -->
+<a id="schemadata"></a>
+<a id="schema_Data"></a>
+<a id="tocSdata"></a>
+<a id="tocsdata"></a>
+
+```json
+{
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "type": "string",
+  "attributes": {}
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string(uuid)|false|none|none|
+|type|string|false|none|none|
+|attributes|object|false|none|none|
+
+<h2 id="tocS_Meta">Meta</h2>
+<!-- backwards compatibility -->
+<a id="schemameta"></a>
+<a id="schema_Meta"></a>
+<a id="tocSmeta"></a>
+<a id="tocsmeta"></a>
+
+```json
+{
+  "page": {
+    "maxSize": 0,
+    "total": 0
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|page|object|false|none|none|
+|» maxSize|integer|false|none|none|
+|» total|integer|false|none|none|
+
+<h2 id="tocS_Account">Account</h2>
+<!-- backwards compatibility -->
+<a id="schemaaccount"></a>
+<a id="schema_Account"></a>
+<a id="tocSaccount"></a>
+<a id="tocsaccount"></a>
+
+```json
+{
+  "id": "string",
+  "type": "string",
+  "attributes": {
+    "label": "string",
+    "application": "string",
+    "createdAt": "string",
+    "createdBy": "string",
+    "updatedAt": "string",
+    "updatedBy": "string"
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|false|none|none|
+|type|string|false|none|none|
+|attributes|object|false|none|none|
+|» label|string|false|none|none|
+|» application|string|false|none|none|
+|» createdAt|string|false|none|none|
+|» createdBy|string|false|none|none|
+|» updatedAt|string|false|none|none|
+|» updatedBy|string|false|none|none|
+
+<h2 id="tocS_Accounts">Accounts</h2>
+<!-- backwards compatibility -->
+<a id="schemaaccounts"></a>
+<a id="schema_Accounts"></a>
+<a id="tocSaccounts"></a>
+<a id="tocsaccounts"></a>
+
+```json
+[
+  {
+    "id": "string",
+    "type": "string",
+    "attributes": {
+      "label": "string",
+      "application": "string",
+      "createdAt": "string",
+      "createdBy": "string",
+      "updatedAt": "string",
+      "updatedBy": "string"
+    }
+  }
+]
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[Account](#schemaaccount)]|false|none|none|
+
+<h2 id="tocS_AccountsResponse">AccountsResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemaaccountsresponse"></a>
+<a id="schema_AccountsResponse"></a>
+<a id="tocSaccountsresponse"></a>
+<a id="tocsaccountsresponse"></a>
+
+```json
+{
+  "data": [
+    {
+      "id": "string",
+      "type": "string",
+      "attributes": {
+        "label": "string",
+        "application": "string",
+        "createdAt": "string",
+        "createdBy": "string",
+        "updatedAt": "string",
+        "updatedBy": "string"
+      }
+    }
+  ],
+  "links": {
+    "self": "string",
+    "next": "string"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 0,
+      "total": 0
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[[Account](#schemaaccount)]|false|none|none|
+|links|[Links](#schemalinks)|false|none|none|
+|meta|[Meta](#schemameta)|false|none|none|
+
+<h2 id="tocS_AccountResponse">AccountResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemaaccountresponse"></a>
+<a id="schema_AccountResponse"></a>
+<a id="tocSaccountresponse"></a>
+<a id="tocsaccountresponse"></a>
+
+```json
+{
+  "data": {
+    "id": "string",
+    "type": "string",
+    "attributes": {
+      "label": "string",
+      "application": "string",
+      "createdAt": "string",
+      "createdBy": "string",
+      "updatedAt": "string",
+      "updatedBy": "string"
+    }
+  },
+  "links": {
+    "self": "string",
+    "next": "string"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 0,
+      "total": 0
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[Account](#schemaaccount)|false|none|none|
+|links|[Links](#schemalinks)|false|none|none|
+|meta|[Meta](#schemameta)|false|none|none|
+
+<h2 id="tocS_ErrorResponse">ErrorResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemaerrorresponse"></a>
+<a id="schema_ErrorResponse"></a>
+<a id="tocSerrorresponse"></a>
+<a id="tocserrorresponse"></a>
+
+```json
+{
+  "title": "string",
+  "detail": "string",
+  "status": 0,
+  "meta": {}
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|title|string|false|none|none|
+|detail|string|false|none|none|
+|status|number|false|none|none|
+|meta|object|false|none|none|
+
+<h2 id="tocS_ErrorsResponse">ErrorsResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemaerrorsresponse"></a>
+<a id="schema_ErrorsResponse"></a>
+<a id="tocSerrorsresponse"></a>
+<a id="tocserrorsresponse"></a>
+
+```json
+{
+  "errors": [
+    {
+      "title": "string",
+      "detail": "string",
+      "status": 0,
+      "meta": {}
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|errors|[[ErrorResponse](#schemaerrorresponse)]|false|none|none|
+
+<h2 id="tocS_User">User</h2>
+<!-- backwards compatibility -->
+<a id="schemauser"></a>
+<a id="schema_User"></a>
+<a id="tocSuser"></a>
+<a id="tocsuser"></a>
+
+```json
+{
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "type": "string",
+  "attributes": {
+    "firstName": "string",
+    "lastName": "string",
+    "email": "string",
+    "status": "string",
+    "role": "string",
+    "isGuest": true,
+    "createdAt": "2019-08-24T14:15:22Z",
+    "updatedAt": "2019-08-24T14:15:22Z",
+    "lastActivity": "2019-08-24T14:15:22Z"
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string(uuid)|false|none|none|
+|type|string|false|none|none|
+|attributes|object|false|none|none|
+|» firstName|string|false|none|none|
+|» lastName|string|false|none|none|
+|» email|string|false|none|none|
+|» status|string|false|none|none|
+|» role|string|false|none|none|
+|» isGuest|boolean|false|none|none|
+|» createdAt|string(date-time)|false|none|none|
+|» updatedAt|string(date-time)|false|none|none|
+|» lastActivity|string(date-time)|false|none|none|
+
+<h2 id="tocS_Users">Users</h2>
+<!-- backwards compatibility -->
+<a id="schemausers"></a>
+<a id="schema_Users"></a>
+<a id="tocSusers"></a>
+<a id="tocsusers"></a>
+
+```json
+[
+  {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "string",
+    "attributes": {
+      "firstName": "string",
+      "lastName": "string",
+      "email": "string",
+      "status": "string",
+      "role": "string",
+      "isGuest": true,
+      "createdAt": "2019-08-24T14:15:22Z",
+      "updatedAt": "2019-08-24T14:15:22Z",
+      "lastActivity": "2019-08-24T14:15:22Z"
+    }
+  }
+]
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[User](#schemauser)]|false|none|none|
+
+<h2 id="tocS_UsersResponse">UsersResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemausersresponse"></a>
+<a id="schema_UsersResponse"></a>
+<a id="tocSusersresponse"></a>
+<a id="tocsusersresponse"></a>
+
+```json
+{
+  "data": [
+    {
+      "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+      "type": "string",
+      "attributes": {
+        "firstName": "string",
+        "lastName": "string",
+        "email": "string",
+        "status": "string",
+        "role": "string",
+        "isGuest": true,
+        "createdAt": "2019-08-24T14:15:22Z",
+        "updatedAt": "2019-08-24T14:15:22Z",
+        "lastActivity": "2019-08-24T14:15:22Z"
+      }
+    }
+  ],
+  "links": {
+    "self": "string",
+    "next": "string"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 0,
+      "total": 0
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[[User](#schemauser)]|false|none|none|
+|links|[Links](#schemalinks)|false|none|none|
+|meta|[Meta](#schemameta)|false|none|none|
+
+<h2 id="tocS_UserResponse">UserResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemauserresponse"></a>
+<a id="schema_UserResponse"></a>
+<a id="tocSuserresponse"></a>
+<a id="tocsuserresponse"></a>
+
+```json
+{
+  "data": {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "string",
+    "attributes": {
+      "firstName": "string",
+      "lastName": "string",
+      "email": "string",
+      "status": "string",
+      "role": "string",
+      "isGuest": true,
+      "createdAt": "2019-08-24T14:15:22Z",
+      "updatedAt": "2019-08-24T14:15:22Z",
+      "lastActivity": "2019-08-24T14:15:22Z"
+    }
+  },
+  "links": {
+    "self": "string",
+    "next": "string"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 0,
+      "total": 0
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[User](#schemauser)|false|none|none|
+|links|[Links](#schemalinks)|false|none|none|
+|meta|[Meta](#schemameta)|false|none|none|
+
+<h2 id="tocS_Job">Job</h2>
+<!-- backwards compatibility -->
+<a id="schemajob"></a>
+<a id="schema_Job"></a>
+<a id="tocSjob"></a>
+<a id="tocsjob"></a>
+
+```json
+{
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "type": "string",
+  "attributes": {
+    "account": {
+      "entity": "string",
+      "id": "string",
+      "name": "string",
+      "provider": "string"
+    },
+    "canRetry": true,
+    "createdAt": "2019-08-24T14:15:22Z",
+    "createdBy": {
+      "id": "string",
+      "name": "string"
+    },
+    "errorDetails": {
+      "errorType": "string",
+      "screenshotUrl": "string",
+      "userRequired": true
+    },
+    "hasMoreDetails": true,
+    "payload": {},
+    "response": {},
+    "status": "string",
+    "trigger": "string",
+    "updatedAt": "2019-08-24T14:15:22Z",
+    "workflowType": "string",
+    "workspacePolicyEnforcementId": "string"
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string(uuid)|false|none|none|
+|type|string|false|none|none|
+|attributes|object|false|none|none|
+|» account|object|false|none|none|
+|»» entity|string|false|none|none|
+|»» id|string|false|none|none|
+|»» name|string|false|none|none|
+|»» provider|string|false|none|none|
+|» canRetry|boolean|false|none|none|
+|» createdAt|string(date-time)|false|none|none|
+|» createdBy|object|false|none|none|
+|»» id|string|false|none|none|
+|»» name|string|false|none|none|
+|» errorDetails|object|false|none|none|
+|»» errorType|string|false|none|none|
+|»» screenshotUrl|string|false|none|none|
+|»» userRequired|boolean|false|none|none|
+|» hasMoreDetails|boolean|false|none|none|
+|» payload|object|false|none|none|
+|» response|object|false|none|none|
+|» status|string|false|none|none|
+|» trigger|string|false|none|none|
+|» updatedAt|string(date-time)|false|none|none|
+|» workflowType|string|false|none|none|
+|» workspacePolicyEnforcementId|string|false|none|none|
+
+<h2 id="tocS_JobResponse">JobResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemajobresponse"></a>
+<a id="schema_JobResponse"></a>
+<a id="tocSjobresponse"></a>
+<a id="tocsjobresponse"></a>
+
+```json
+{
+  "data": {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "string",
+    "attributes": {
+      "account": {
+        "entity": "string",
+        "id": "string",
+        "name": "string",
+        "provider": "string"
+      },
+      "canRetry": true,
+      "createdAt": "2019-08-24T14:15:22Z",
+      "createdBy": {
+        "id": "string",
+        "name": "string"
+      },
+      "errorDetails": {
+        "errorType": "string",
+        "screenshotUrl": "string",
+        "userRequired": true
+      },
+      "hasMoreDetails": true,
+      "payload": {},
+      "response": {},
+      "status": "string",
+      "trigger": "string",
+      "updatedAt": "2019-08-24T14:15:22Z",
+      "workflowType": "string",
+      "workspacePolicyEnforcementId": "string"
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[Job](#schemajob)|false|none|none|
+
+<h2 id="tocS_JobsResponse">JobsResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemajobsresponse"></a>
+<a id="schema_JobsResponse"></a>
+<a id="tocSjobsresponse"></a>
+<a id="tocsjobsresponse"></a>
+
+```json
+{
+  "data": [
+    {
+      "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+      "type": "string",
+      "attributes": {
+        "account": {
+          "entity": "string",
+          "id": "string",
+          "name": "string",
+          "provider": "string"
+        },
+        "canRetry": true,
+        "createdAt": "2019-08-24T14:15:22Z",
+        "createdBy": {
+          "id": "string",
+          "name": "string"
+        },
+        "errorDetails": {
+          "errorType": "string",
+          "screenshotUrl": "string",
+          "userRequired": true
+        },
+        "hasMoreDetails": true,
+        "payload": {},
+        "response": {},
+        "status": "string",
+        "trigger": "string",
+        "updatedAt": "2019-08-24T14:15:22Z",
+        "workflowType": "string",
+        "workspacePolicyEnforcementId": "string"
+      }
+    }
+  ],
+  "links": {
+    "self": "string",
+    "next": "string"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 0,
+      "total": 0
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[[Job](#schemajob)]|false|none|none|
+|links|[Links](#schemalinks)|false|none|none|
+|meta|[Meta](#schemameta)|false|none|none|
+
+<h2 id="tocS_Secret">Secret</h2>
+<!-- backwards compatibility -->
+<a id="schemasecret"></a>
+<a id="schema_Secret"></a>
+<a id="tocSsecret"></a>
+<a id="tocssecret"></a>
+
+```json
+{
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "type": "string",
+  "attributes": {
+    "title": "string",
+    "body_secret_id": "a208b24b-83a3-40ca-ab7d-1124ae655184",
+    "requires_identity_challenge": true,
+    "workspace_id": "0967198e-ec7b-4c6b-b4d3-f71244cadbe9",
+    "workspace_name": "string",
+    "created_by": "ee824cad-d7a6-4f48-87dc-e8461a9201c4",
+    "updated_at": "2019-08-24T14:15:22Z",
+    "updated_by": "deea00dc-b6b6-4412-a483-26ac61e1f6fe",
+    "version_id": "9e94c502-ca41-4342-a7f7-af96b444512c",
+    "version": 0,
+    "event_name": "string",
+    "created_at": "2019-08-24T14:15:22Z",
+    "status": "string",
+    "category": "string"
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string(uuid)|false|none|none|
+|type|string|false|none|none|
+|attributes|object|false|none|none|
+|» title|string|false|none|Title of the Secret.|
+|» body_secret_id|string(uuid)|false|none|Unique identifier of the body secret.|
+|» requires_identity_challenge|boolean|false|none|Flag indicating if identity challenge is required.|
+|» workspace_id|string(uuid)|false|none|Unique identifier of the workspace.|
+|» workspace_name|string|false|none|Name of the workspace.|
+|» created_by|string(uuid)|false|none|Unique identifier of the user who created the Secret.|
+|» updated_at|string(date-time)|false|none|Timestamp of the last update.|
+|» updated_by|string(uuid)|false|none|Unique identifier of the user who last updated the Secret.|
+|» version_id|string(uuid)|false|none|Unique identifier of the Secret version.|
+|» version|integer|false|none|Version of the Secret.|
+|» event_name|string|false|none|Name of the event.|
+|» created_at|string(date-time)|false|none|Timestamp of the creation.|
+|» status|string|false|none|Status of the Secret.|
+|» category|string|false|none|Category of the Secret.|
+
+<h2 id="tocS_SecretResponse">SecretResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemasecretresponse"></a>
+<a id="schema_SecretResponse"></a>
+<a id="tocSsecretresponse"></a>
+<a id="tocssecretresponse"></a>
+
+```json
+{
+  "data": {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "string",
+    "attributes": {
+      "title": "string",
+      "body_secret_id": "a208b24b-83a3-40ca-ab7d-1124ae655184",
+      "requires_identity_challenge": true,
+      "workspace_id": "0967198e-ec7b-4c6b-b4d3-f71244cadbe9",
+      "workspace_name": "string",
+      "created_by": "ee824cad-d7a6-4f48-87dc-e8461a9201c4",
+      "updated_at": "2019-08-24T14:15:22Z",
+      "updated_by": "deea00dc-b6b6-4412-a483-26ac61e1f6fe",
+      "version_id": "9e94c502-ca41-4342-a7f7-af96b444512c",
+      "version": 0,
+      "event_name": "string",
+      "created_at": "2019-08-24T14:15:22Z",
+      "status": "string",
+      "category": "string"
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[Secret](#schemasecret)|false|none|none|
+
+<h2 id="tocS_PublicTenantEntitlementAttributes">PublicTenantEntitlementAttributes</h2>
+<!-- backwards compatibility -->
+<a id="schemapublictenantentitlementattributes"></a>
+<a id="schema_PublicTenantEntitlementAttributes"></a>
+<a id="tocSpublictenantentitlementattributes"></a>
+<a id="tocspublictenantentitlementattributes"></a>
+
+```json
+{
+  "key": "string",
+  "value": "string",
+  "label": "string",
+  "group": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|key|string|true|none|The key of the entitlement attribute|
+|value|string|true|none|The value of the entitlement attribute|
+|label|string|true|none|The label of the entitlement attribute|
+|group|string|true|none|The group of the entitlement attribute|
+
+<h2 id="tocS_PublicTenantEntitlement">PublicTenantEntitlement</h2>
+<!-- backwards compatibility -->
+<a id="schemapublictenantentitlement"></a>
+<a id="schema_PublicTenantEntitlement"></a>
+<a id="tocSpublictenantentitlement"></a>
+<a id="tocspublictenantentitlement"></a>
+
+```json
+{
+  "id": "string",
+  "type": "entitlement",
+  "attributes": {
+    "key": "string",
+    "value": "string",
+    "label": "string",
+    "group": "string"
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|true|none|The ID of the entitlement|
+|type|string|true|none|The type of the entitlement|
+|attributes|[PublicTenantEntitlementAttributes](#schemapublictenantentitlementattributes)|true|none|none|
+
+<h2 id="tocS_PublicTenantEntitlementsOutput">PublicTenantEntitlementsOutput</h2>
+<!-- backwards compatibility -->
+<a id="schemapublictenantentitlementsoutput"></a>
+<a id="schema_PublicTenantEntitlementsOutput"></a>
+<a id="tocSpublictenantentitlementsoutput"></a>
+<a id="tocspublictenantentitlementsoutput"></a>
+
+```json
+{
+  "data": [
+    {
+      "id": "string",
+      "type": "entitlement",
+      "attributes": {
+        "key": "string",
+        "value": "string",
+        "label": "string",
+        "group": "string"
+      }
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[[PublicTenantEntitlement](#schemapublictenantentitlement)]|true|none|none|
+
+<h2 id="tocS_TeamResponse">TeamResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemateamresponse"></a>
+<a id="schema_TeamResponse"></a>
+<a id="tocSteamresponse"></a>
+<a id="tocsteamresponse"></a>
+
+```json
+{
+  "data": {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "team",
+    "attributes": {
+      "name": "string",
+      "workspaceId": "string",
+      "type": "user_managed",
+      "vaultId": "867f3a98-ec66-42f4-abbc-5980239e4a28"
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|object|true|none|none|
+|» id|string(uuid)|true|none|none|
+|» type|string|true|none|none|
+|» attributes|object|true|none|none|
+|»» name|string|true|none|none|
+|»» workspaceId|string|true|none|none|
+|»» type|string|true|none|none|
+|»» vaultId|string(uuid)¦null|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|type|team|
+|type|user_managed|
+|type|scim_managed|
+|type|undefined|
+
+<h2 id="tocS_PublicCollectionOutput">PublicCollectionOutput</h2>
+<!-- backwards compatibility -->
+<a id="schemapubliccollectionoutput"></a>
+<a id="schema_PublicCollectionOutput"></a>
+<a id="tocSpubliccollectionoutput"></a>
+<a id="tocspubliccollectionoutput"></a>
+
+```json
+{
+  "data": {
+    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+    "type": "collections",
+    "attributes": {
+      "accountCount": 0,
+      "accountProviders": [],
+      "collectionCount": 0,
+      "createdBy": "25a02396-1048-48f9-bf93-102d2fb7895e",
+      "createdAt": "2019-08-24T14:15:22Z",
+      "updatedAt": "2019-08-24T14:15:22Z",
+      "meta": {},
+      "name": "string",
+      "role": "string",
+      "roles": [],
+      "secretCount": 0,
+      "status": "string",
+      "updatedBy": "b0efe45f-0520-4e21-90f0-7e35f137732e",
+      "vaultId": "867f3a98-ec66-42f4-abbc-5980239e4a28"
+    }
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[PublicCollection](#schemapubliccollection)|false|none|none|
+
+<h2 id="tocS_PublicCollection">PublicCollection</h2>
+<!-- backwards compatibility -->
+<a id="schemapubliccollection"></a>
+<a id="schema_PublicCollection"></a>
+<a id="tocSpubliccollection"></a>
+<a id="tocspubliccollection"></a>
+
+```json
+{
+  "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+  "type": "collections",
+  "attributes": {
+    "accountCount": 0,
+    "accountProviders": [],
+    "collectionCount": 0,
+    "createdBy": "25a02396-1048-48f9-bf93-102d2fb7895e",
+    "createdAt": "2019-08-24T14:15:22Z",
+    "updatedAt": "2019-08-24T14:15:22Z",
+    "meta": {},
+    "name": "string",
+    "role": "string",
+    "roles": [],
+    "secretCount": 0,
+    "status": "string",
+    "updatedBy": "b0efe45f-0520-4e21-90f0-7e35f137732e",
+    "vaultId": "867f3a98-ec66-42f4-abbc-5980239e4a28"
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string(uuid)|false|none|none|
+|type|string|false|none|none|
+|attributes|[PublicCollectionAttributes](#schemapubliccollectionattributes)|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|type|collections|
+
+<h2 id="tocS_PublicCollectionAttributes">PublicCollectionAttributes</h2>
+<!-- backwards compatibility -->
+<a id="schemapubliccollectionattributes"></a>
+<a id="schema_PublicCollectionAttributes"></a>
+<a id="tocSpubliccollectionattributes"></a>
+<a id="tocspubliccollectionattributes"></a>
+
+```json
+{
+  "accountCount": 0,
+  "accountProviders": [],
+  "collectionCount": 0,
+  "createdBy": "25a02396-1048-48f9-bf93-102d2fb7895e",
+  "createdAt": "2019-08-24T14:15:22Z",
+  "updatedAt": "2019-08-24T14:15:22Z",
+  "meta": {},
+  "name": "string",
+  "role": "string",
+  "roles": [],
+  "secretCount": 0,
+  "status": "string",
+  "updatedBy": "b0efe45f-0520-4e21-90f0-7e35f137732e",
+  "vaultId": "867f3a98-ec66-42f4-abbc-5980239e4a28"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|accountCount|integer|false|none|none|
+|accountProviders|[string]|false|none|none|
+|collectionCount|integer|false|none|none|
+|createdBy|string(uuid)|false|none|none|
+|createdAt|any|false|none|none|
+
+oneOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|string(date-time)|false|none|none|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|string|false|none|none|
+
+continued
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|updatedAt|any|false|none|none|
+
+oneOf
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|string(date-time)|false|none|none|
+
+xor
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» *anonymous*|string|false|none|none|
+
+continued
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|meta|object|false|none|none|
+|name|string|false|none|none|
+|role|string|false|none|none|
+|roles|[string]|false|none|none|
+|secretCount|integer|false|none|none|
+|status|string|false|none|none|
+|updatedBy|string(uuid)|false|none|none|
+|vaultId|string(uuid)¦null|false|none|none|
