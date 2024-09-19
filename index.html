@@ -354,6 +354,20 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#the-user-object" class="toc-h2 toc-link" data-title="The user object">The user object</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-all-users" class="toc-h2 toc-link" data-title="Retrieve all users">Retrieve all users</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-user-by-id" class="toc-h2 toc-link" data-title="Retrieve user by ID">Retrieve user by ID</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
     </div>
     <div class="page-wrapper"> 
@@ -386,15 +400,16 @@ into your applications and systems.</p>
 <a href="https://spec.openapis.org/oas/latest.html">OpenAPI 3.0 Specifications</a> 
 and communicates over HTTPS for secure data transmission. </p>
 
-<p>Based on Cerby’s role-based access control (RBAC) system, the <strong><code>X-API-Key</code></strong> 
-API key you use for authentication determines the endpoints and data you can 
-access depending on your workspace and item role. 
-Learn more about the Cerby API authentication and how to generate the 
+<p>Based on Cerby’s role-based access control (RBAC) system, you must use the <strong><code>X-API-Key</code></strong> 
+variable as the API key for authentication. The value and scopes of this variable determines the endpoints and data you can 
+access depending on your workspace and item role. Learn more about the Cerby API authentication and how to generate the 
 API key in the <a href="#authentication">Authentication</a> section.</p>
 
-<p>The base URL is the following: 
-<strong>&#39;https://my-workspace.cerby.com/api/v1/&#39;</strong>. 
-You must replace <strong>&#39;my-workspace&#39;</strong> with the name of your workspace.</p>
+<p>The base URL is the following: </p>
+
+<p><strong><code>https://my-workspace.cerby.com/api/v1/</code></strong></p>
+
+<p>You must replace <strong><code>my-workspace</code></strong> with the name of your workspace.</p>
 
 <h1 id='authentication'>Authentication</h1>
 
@@ -419,7 +434,7 @@ You must replace <strong>&#39;my-workspace&#39;</strong> with the name of your w
 <aside class="warning">
 <b>IMPORTANT:</b> 
 <ul>
-    <li>If the API key is expired or does not have the correct scopes, the Cerby API returns a `401` error.</li>
+    <li>If the API key is expired or does not have the correct scopes, the Cerby API returns a <code>401</code> error.</li>
     <li>Your tokens are sensitive resources because they grant access to the 
     data you have saved in your workspace. Avoid sharing them in public repositories 
     or client-side code.</li>
@@ -459,6 +474,13 @@ You must replace <strong>&#39;my-workspace&#39;</strong> with the name of your w
     <td><code>Not found</code></td>
     <td>Indicates that the origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
     <p>Verify your request.
+    </td>
+  </tr>
+  <tr>
+    <td><code><b>429</b></code></td>
+    <td><code>Too many requests</code></td>
+    <td>Indicates that the user has sent too many requests in a given amount of time ("rate limiting").
+    <p> Retry in five minutes.
     </td>
   </tr>
 </table>
@@ -665,15 +687,13 @@ Accept: application/json
 <td>The comma-separated list of applications to filter their associated accounts. </br> For example: <code>mailchimp, asana</code>.</td>
 </tr>
 </tbody></table>
-
 <h3 id='response'>Response</h3>
-
 <p>The following table describes the response status and messages:</p>
 
 <table><thead>
 <tr>
 <th>Status</th>
-<th>Meaning</th>
+<th>Response</th>
 <th>Description</th>
 <th>Schema</th>
 </tr>
@@ -691,21 +711,16 @@ Accept: application/json
 <td><a href="#errors">Error information</a></td>
 </tr>
 </tbody></table>
-
 <h2 id='retrieve-account-by-id'>Retrieve account by ID</h2>
-
 <p>With a <strong><code>GET</code></strong> request to the <code>accounts/{id}</code> endpoint, you can retrieve the information of an account by providing its ID.</p>
 
 <aside class="warning">
 <b>IMPORTANT:</b> The required API key scopes to access this resource are: <code>read:items</code> or <code>read:items:accounts</code>
 </aside>
-
 <h3 id='path-parameters'>Path parameters</h3>
-
 <blockquote>
 <p>The following is an example of a request to the endpoint:</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -721,11 +736,9 @@ Accept: application/json
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <blockquote>
 <p>Unauthorized. The request requires user authentication.</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -738,11 +751,9 @@ Accept: application/json
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <blockquote>
 <p>Not found. The requested resource could not be found.</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -784,7 +795,6 @@ curl <span class="nt">-X</span> GET https://<span class="o">{</span>workspaceNam
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://{workspaceName}.cerbyapi.com/v1/accounts/{id}'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
 </code></pre></div>
-
 <p>The following table describes the path parameters of a request:</p>
 
 <table><thead>
@@ -802,13 +812,11 @@ curl <span class="nt">-X</span> GET https://<span class="o">{</span>workspaceNam
 <td>The unique identifier of the resource.</td>
 </tr>
 </tbody></table>
-
 <h3 id='response-2'>Response</h3>
-
 <table><thead>
 <tr>
 <th>Status</th>
-<th>Meaning</th>
+<th>Response</th>
 <th>Description</th>
 <th>Schema</th>
 </tr>
@@ -817,7 +825,381 @@ curl <span class="nt">-X</span> GET https://<span class="o">{</span>workspaceNam
 <td><code>200</code></td>
 <td><code>OK</code></td>
 <td>The requested account JSON object.</td>
-<td><a href="#account-object">Accountobject</a></td>
+<td><a href="#account-object">Account object</a></td>
+</tr>
+<tr>
+<td><code>401</code></td>
+<td><code>Unauthorized</code></td>
+<td>Unauthorized. The request requires user authentication.</td>
+<td><a href="#errors">Error information</a></td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td><code>Not Found</code></td>
+<td>Not found. The requested resource could not be found.</td>
+<td><a href="#errors">Error information</a></td>
+</tr>
+</tbody></table>
+
+<h1 id='users'>Users</h1>
+<p>In Cerby, users are individuals who have access to a workspace and can create, protect, 
+and manage items. A user object contains information about the user name, email, 
+workspace role, and other relevant attributes within the context of your workspace.</p>
+
+<p>A user object is created in Cerby when you perform any of the following actions:</p>
+
+<ul>
+<li>Provision a user in Cerby from your corporate identity provider (IdP), such as Okta
+or Entra ID (formerly Azure AD).</li>
+<li>Invite a user to join a local user workspace, with an identity managed by Cerby.</li>
+<li>Invite a user to join a workspace as a guest user, with an identity managed by Cerby.</li>
+</ul>
+
+<p>With the Cerby API, you can retrieve all users or specific users by providing their ID. </p>
+
+<aside class="warning">
+<b>IMPORTANT:</b> You can only retrieve users if you have the workspace <b>Admin</b>, 
+<b>Super Admin</b>, or <b>Owner</b> role. Your permissions are determined by your API 
+or bearer token, based on Cerby’s RBAC system.
+</aside>
+
+<p><a name="user-object"></a></p>
+<h2 id='the-user-object'>The user object</h2>
+<blockquote>
+<p>The following is a sample response object:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6d23c85b-d3f9-34c7-bb34-7c00000000c5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_super_admin"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"isGuest"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-04T15:36:54"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-07-08T19:30:56"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastActivity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-05T20:46:14.357000"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The following table describes the attributes of a <code>user</code> object:</p>
+
+<table>
+  <tr>
+    <th style="width: 40%;">Attribute</th>
+    <th style="width: 60%;">Description</th>
+  </tr>
+  <tr>
+    <td><code><b>id</b></code><br><em>string</em></td>
+    <td>The unique identifier for the user.</td>
+  </tr>
+  <tr>
+    <td><code><b>attributes</b></code><br><em>object or dictionary</em></td>
+    <td>The attributes of the user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>firstName</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The first name of the user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>lastName</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The last name of the user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>email</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The email of the user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>status</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The user status in the Cerby workspace. The possible values are: <code>live</code>, <code>pending</code>, <code>disabled</code></td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>role</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The user role in the Cerby workspace. The possible values are: <code>app_user</code>, <code>workspace_super_admin</code>, <code>it_admin</code>, <code>workspace_login_only</code>, <code>workspace_guest_user</code></td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>isGuest</b></code><br>&emsp;&emsp;<em>boolean</em></td>
+    <td>The flag that indicates whether the user is a guest user. <code>True</code>, the user is a guest user in the workspace; <code>false</code>, the user is a native workspace user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>createdAt</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The date and time the user was created in the workspace.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>updatedAt</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The date and time the user was last updated in the workspace.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>lastActivity</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The date and time the user last was active in the workspace.</td>
+  </tr>
+</table>
+
+<h2 id='retrieve-all-users'>Retrieve all users</h2>
+
+<p>With a <strong><code>GET</code></strong> request to the <strong><code>/users</code></strong> endpoint, you can retrieve a list of all users in your workspace.</p>
+
+<aside class="warning">
+<b>IMPORTANT:</b> The required API key scope to access this resource is: <code>read:users</code>
+</aside>
+
+<h3 id='query-parameters'>Query parameters</h3>
+
+<p>The following table describes the query parameters of a request:</p>
+
+<blockquote>
+<p>The following is an example of a request to the endpoint:</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234c85b-1234-46c7-bb34-7c88681287a5"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john@doe.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_super_admin"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"isGuest"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-04T15:36:54"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-07-08T19:30:56"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastActivity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-05T20:46:14.357000"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/users?page[number]=2&amp;page[size]=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/users?page[number]=3&amp;page[size]=1"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"maxSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Unauthorized. The request requires user authentication.</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unauthorized"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unable to access resource."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">401</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unauthorized"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Not found. The requested resource could not be found.</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_found"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Resource not found."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_found"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET https://<span class="o">{</span>workspaceName<span class="o">}</span>.cerbyapi.com/v1/users <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'X-API-KEY: API_KEY'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">https://{workspaceName}.cerbyapi.com/v1/users</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+
+Accept: application/json
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">X-API-KEY</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">API_KEY</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">https://{workspaceName}.cerbyapi.com/v1/users</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+  <span class="s">'X-API-KEY'</span><span class="p">:</span> <span class="s">'API_KEY'</span>
+<span class="p">}</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://{workspaceName}.cerbyapi.com/v1/users'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>page[number]</code></td>
+<td>integer</td>
+<td>false</td>
+<td>The page number to retrieve in the paginated result set.</td>
+</tr>
+<tr>
+<td><code>page[size]</code></td>
+<td>integer</td>
+<td>false</td>
+<td>The number of items to return per page.</td>
+</tr>
+</tbody></table>
+
+<h3 id='response'>Response</h3>
+
+<p>The following table describes the response status and messages:</p>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Response</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>200</code></td>
+<td><code>OK</code></td>
+<td>The JSON array with the user objects requested on the specified page.</td>
+<td><a href="#user-object">User object</a></td>
+</tr>
+<tr>
+<td><code>401</code></td>
+<td><code>Unauthorized</code></td>
+<td>Unauthorized. The request requires user authentication.</td>
+<td><a href="#errors">Error information</a></td>
+</tr>
+</tbody></table>
+
+<h2 id='retrieve-user-by-id'>Retrieve user by ID</h2>
+
+<p>With a <strong><code>GET</code></strong> request to the <strong><code>/users/{id}</code></strong> endpoint, you can retrieve the information of a user by providing their ID.</p>
+
+<aside class="warning">
+<b>IMPORTANT:</b> The required API key scope to access this resource is: <code>read:users</code>
+</aside>
+
+<h3 id='path-parameters'>Path parameters</h3>
+
+<blockquote>
+<p>The following is an example of a request to the endpoint:</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6d23c85b-d3f9-46c7-bb34-7c88680087c5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alberto"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Copado"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alberto@cerby.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"live"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_super_admin"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"isGuest"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-04T15:36:54"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-07-08T19:30:56"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastActivity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-05T20:46:14.357000"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Unauthorized. The request requires user authentication.</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unauthorized"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unable to access resource."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">401</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unauthorized"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Not found. The requested resource could not be found.</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_found"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Resource not found."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_found"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<p>The following table describes the path parameter of a request:</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td>true</td>
+<td>The unique identifier of the user.</td>
+</tr>
+</tbody></table>
+
+<h3 id='response-2'>Response</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Response</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>200</code></td>
+<td><code>OK</code></td>
+<td>The requested user JSON object.</td>
+<td><a href="#account-object">User object</a></td>
 </tr>
 <tr>
 <td><code>401</code></td>
