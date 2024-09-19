@@ -188,7 +188,7 @@ The following table describes the query parameters of a request:
 ### Response
 The following table describes the response status and messages:
 
-|Status|Meaning|Description|Schema|
+|Status|Response|Description|Schema|
 |---|---|---|---|
 |`200`|`OK`|The JSON array with the account objects requested on the specified page.|[Accounts object](#account-object)|
 |`401`|`Unauthorized`|Unauthorized. The request requires user authentication.|[Error information](#errors)|
@@ -300,8 +300,8 @@ The following table describes the path parameters of a request:
 |`id`|string|true|The unique identifier of the resource.|
 
 ### Response
-|Status|Meaning|Description|Schema|
+|Status|Response|Description|Schema|
 |---|---|---|---|
-|`200`|`OK`|The requested account JSON object.|[Accountobject](#account-object)|
+|`200`|`OK`|The requested account JSON object.|[Account object](#account-object)|
 |`401`|`Unauthorized`|Unauthorized. The request requires user authentication.|[Error information](#errors)|
 |`404`|`Not Found`|Not found. The requested resource could not be found.|[Error information](#errors)|

@@ -19,6 +19,10 @@ With the Cerby API, you can retrieve all users or specific users by providing th
 or bearer token, based on Cerby’s RBAC system.
 </aside>
 
+<a name="user-object"></a>
+
+## The user object
+
 > The following is a sample response object:
 
 ```json
@@ -39,6 +43,8 @@ or bearer token, based on Cerby’s RBAC system.
 }
 ```
 
+The following table describes the attributes of a `user` object:
+
 <table>
   <tr>
     <th style="width: 40%;">Attribute</th>
@@ -50,31 +56,253 @@ or bearer token, based on Cerby’s RBAC system.
   </tr>
   <tr>
     <td><code><b>attributes</b></code><br><em>object or dictionary</em></td>
-    <td>The attributes of the account.</td>
+    <td>The attributes of the user.</td>
   </tr>
   <tr>
-    <td colspan=2>
-    <details>
-        <summary><a>View object attributes</a></summary>
-        <table>
-          <tr>
-            <td><code><b>firstName</b></code><br><em>string</em></td>
-            <td>The user’s first name</td>
-          </tr>
-          <tr>
-            <td><code><b>lastName</b></code><br><em>string</em></td>
-            <td>The user’s last name</td>
-          </tr>
-          <tr>
-            <td><code><b>email</b></code><br><em>string</em></td>
-            <td>The user’s email</td>
-          </tr>
-          <tr>
-            <td><code><b>status</b></code><br><em>string</em></td>
-            <td>The user’s current status</td>
-          </tr>
-        </table>
-      </details>
-    </td>
+    <td>&emsp;&emsp;<code><b>firstName</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The first name of the user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>lastName</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The last name of the user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>email</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The email of the user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>status</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The user status in the Cerby workspace. The possible values are: <code>live</code>, <code>pending</code>, <code>disabled</code></td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>role</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The user role in the Cerby workspace. The possible values are: <code>app_user</code>, <code>workspace_super_admin</code>, <code>it_admin</code>, <code>workspace_login_only</code>, <code>workspace_guest_user</code></td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>isGuest</b></code><br>&emsp;&emsp;<em>boolean</em></td>
+    <td>The flag that indicates whether the user is a guest user. <code>True</code>, the user is a guest user in the workspace; <code>false</code>, the user is a native workspace user.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>createdAt</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The date and time the user was created in the workspace.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>updatedAt</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The date and time the user was last updated in the workspace.</td>
+  </tr>
+  <tr>
+    <td>&emsp;&emsp;<code><b>lastActivity</b></code><br>&emsp;&emsp;<em>string</em></td>
+    <td>The date and time the user last was active in the workspace.</td>
   </tr>
 </table>
+
+## Retrieve all users
+With a **`GET`** request to the **`/users`** endpoint, you can retrieve a list of all users in your workspace.
+
+<aside class="warning">
+<b>IMPORTANT:</b> The required API key scope to access this resource is: <code>read:users</code>
+</aside>
+
+### Query parameters
+The following table describes the query parameters of a request:
+
+> The following is an example of a request to the endpoint:
+
+```json
+{
+  "data": [
+    {
+      "id": "1234c85b-1234-46c7-bb34-7c88681287a5",
+      "type": "user",
+      "attributes": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john@doe.com",
+        "status": "live",
+        "role": "workspace_super_admin",
+        "isGuest": false,
+        "createdAt": "2024-01-04T15:36:54",
+        "updatedAt": "2024-07-08T19:30:56",
+        "lastActivity": "2024-09-05T20:46:14.357000"
+      }
+    }
+  ],
+  "links": {
+    "next": "/api/v1/users?page[number]=2&page[size]=1",
+    "self": "/api/v1/users?page[number]=3&page[size]=1"
+  },
+  "meta": {
+    "page": {
+      "maxSize": 100,
+      "total": 4
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+```shell
+# You can also use wget
+curl -X GET https://{workspaceName}.cerbyapi.com/v1/users \
+  -H 'Accept: application/json' \
+  -H 'X-API-KEY: API_KEY'
+
+```
+
+```http
+GET https://{workspaceName}.cerbyapi.com/v1/users HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json',
+  'X-API-KEY':'API_KEY'
+};
+
+fetch('https://{workspaceName}.cerbyapi.com/v1/users',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'X-API-KEY': 'API_KEY'
+}
+r = requests.get('https://{workspaceName}.cerbyapi.com/v1/users', headers = headers)
+print(r.json())
+```
+
+|Name|Type|Required|Description|
+|------|---|---|---|
+|`page[number]`|integer|false|The page number to retrieve in the paginated result set.|
+|`page[size]`|integer|false|The number of items to return per page.|
+
+### Response
+The following table describes the response status and messages:
+
+|Status|Response|Description|Schema|
+|------|-------|-----------|------|
+|`200`|`OK`|The JSON array with the user objects requested on the specified page.|[User object](#user-object)|
+|`401`|`Unauthorized`|Unauthorized. The request requires user authentication.|[Error information](#errors)|
+
+## Retrieve user by ID
+With a **`GET`** request to the **`/users/{id}`** endpoint, you can retrieve the information of a user by providing their ID.
+
+<aside class="warning">
+<b>IMPORTANT:</b> The required API key scope to access this resource is: <code>read:users</code>
+</aside>
+
+### Path parameters
+
+> The following is an example of a request to the endpoint:
+
+```json
+{
+  "data": {
+    "id": "6d23c85b-d3f9-46c7-bb34-7c88680087c5",
+    "type": "user",
+    "attributes": {
+      "firstName": "Alberto",
+      "lastName": "Copado",
+      "email": "alberto@cerby.com",
+      "status": "live",
+      "role": "workspace_super_admin",
+      "isGuest": false,
+      "createdAt": "2024-01-04T15:36:54",
+      "updatedAt": "2024-07-08T19:30:56",
+      "lastActivity": "2024-09-05T20:46:14.357000"
+    }
+  }
+}
+```
+
+> Unauthorized. The request requires user authentication.
+
+```json
+{
+  "errors": [
+    {
+      "code": "unauthorized",
+      "detail": "Unable to access resource.",
+      "meta": null,
+      "status": 401,
+      "title": "unauthorized"
+    }
+  ]
+}
+```
+
+> Not found. The requested resource could not be found.
+
+```json
+{
+  "errors": [
+    {
+      "code": "not_found",
+      "detail": "Resource not found.",
+      "meta": null,
+      "status": 404,
+      "title": "not_found"
+    }
+  ]
+}
+```
+
+The following table describes the path parameter of a request:
+
+|Name|Type|Required|Description|
+|----|----|---|---|
+|`id`|string|true|The unique identifier of the user.|
+
+### Response
+|Status|Response|Description|Schema|
+|---|---|---|---|
+|`200`|`OK`|The requested user JSON object.|[User object](#account-object)|
+|`401`|`Unauthorized`|Unauthorized. The request requires user authentication.|[Error information](#errors)|
+|`404`|`Not Found`|Not found. The requested resource could not be found.|[Error information](#errors)|

@@ -23,12 +23,13 @@ The Cerby API follows RESTful principles and the
 [OpenAPI 3.0 Specifications](https://spec.openapis.org/oas/latest.html) 
 and communicates over HTTPS for secure data transmission. 
 
-Based on Cerby’s role-based access control (RBAC) system, the **`X-API-Key`** 
-API key you use for authentication determines the endpoints and data you can 
-access depending on your workspace and item role. 
-Learn more about the Cerby API authentication and how to generate the 
+Based on Cerby’s role-based access control (RBAC) system, you must use the **`X-API-Key`** 
+variable as the API key for authentication. The value and scopes of this variable determines the endpoints and data you can 
+access depending on your workspace and item role. Learn more about the Cerby API authentication and how to generate the 
 API key in the [Authentication](#authentication) section.
 
 The base URL is the following: 
-**'https://my-workspace.cerby.com/api/v1/'**. 
-You must replace **'my-workspace'** with the name of your workspace.
+
+**`https://my-workspace.cerby.com/api/v1/`**
+
+You must replace **`my-workspace`** with the name of your workspace.
